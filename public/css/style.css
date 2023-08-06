@@ -171,14 +171,14 @@ p {
   font-size: 16px;
   font-weight: 300;
   line-height: 30px;
-  color: #5c5c5c;
+  color: #7e7e7e;
   margin-bottom: 13px;
   font-family: EDENNARD;
 }
 
 /* line 68, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/theme-default.scss */
 label {
-  color: #7e7e7e;
+  color: #5c5c5c;
   cursor: pointer;
   font-size: 14px;
   font-weight: 400;
@@ -2303,7 +2303,7 @@ h3 {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  background: #161616;
+  background: #953E92;
   position: relative;
   z-index: 0;
 }
@@ -2332,7 +2332,7 @@ h3 {
 .footer .footer_top .footer_widget .address_text {
   font-size: 16px;
   font-weight: 400;
-  color: #b8bdc3;
+  color: white !important;
   line-height: 30px;
 }
 
@@ -2587,7 +2587,7 @@ h3 {
 /* line 211, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_footer.scss */
 .footer .copy-right_text .copy_right {
   font-size: 14px;
-  color: #b8bdc3;
+  color: #fff;
   margin-bottom: 0;
   font-weight: 400;
 }
@@ -2641,7 +2641,7 @@ input[type='radio'] {
 
 /* line 256, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_footer.scss */
 .bordered_1px {
-  border-top: 1px solid #4e5a69;
+  border-top: 1px solid #4e5a694f !important;
   padding-bottom: 30px;
   display: block;
   overflow: hidden;
@@ -2732,7 +2732,7 @@ input[type='radio'] {
 
   /* line 42, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_bradcam.scss */
   .popup_box {
-    width: 370px;
+    /* width: 370px; */
     padding: 40px 25px;
   }
 }
@@ -2794,7 +2794,12 @@ input[type='radio'] {
 #footer_contact_form {
   width: 90%;
   margin: 0px auto;
+  margin-top: 120px;
   background: #953e9279 !important;
+}
+
+.purple_c {
+  color: #953e92ad !important;
 }
 
 /* line 84, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_bradcam.scss */
@@ -3000,7 +3005,12 @@ select {
   /* line 1, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_department.scss */
   .depertment_area {
     padding-top: 80px;
-    padding-bottom: 80px;
+    padding-bottom: 0px;
+  }
+
+  #footer_contact_form {
+    width: 100%;
+    margin-top: 65px;
   }
 }
 
@@ -3773,7 +3783,7 @@ select {
 
 /* line 1, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_book_apontment.scss */
 .book_apointment_area {
-  background-image: url(../img/banner/form_bg.jpg);
+  /* background-image: url(../img/banner/form_bg.jpg); */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -3786,6 +3796,7 @@ select {
   .book_apointment_area {
     background-position: 20% !important;
     padding: 80px 0;
+    padding-bottom: 10px !important;
   }
 }
 
@@ -7029,6 +7040,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
   margin-left: -15px;
+  text-align: left;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -7045,7 +7057,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Individual item */
 .bm-item {
   display: inline-block;
-  color: #953e92 !important;
+  /* color: #953e92 !important; */
+  color: #fff !important;
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -7121,7 +7134,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   width: 24px;
 }
 
-.graphpop .content img  {
+.graphpop .content img {
   width: 65px;
   margin-bottom: 30px;
 }

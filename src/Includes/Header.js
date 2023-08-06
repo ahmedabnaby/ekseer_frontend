@@ -1,5 +1,5 @@
 import React from 'react';
-import { bubble as Menu } from 'react-burger-menu'
+import { slide as Menu } from 'react-burger-menu'
 import { useLocation } from "react-router-dom";
 function Header() {
   const location = useLocation();
@@ -77,7 +77,7 @@ function Header() {
                   </div>
                 </div>
               </div>
-              <div className="col-12">
+              <div className="col-12 text-right">
                 <div className="mobile_menu d-block d-lg-none">
                   <Menu>
                     <a id="home" className="menu-item" href="/">Home</a>
@@ -86,7 +86,7 @@ function Header() {
                     { user === null || user === "New User"? "" : 
                       <a id="logout" className="menu-item" href="/logout">Logout</a>
                     }
-                    <img src="img/logo.png" alt="" />
+                    {/* <img src="img/logo.png" alt="" /> */}
                   </Menu>
                 </div>
               </div>

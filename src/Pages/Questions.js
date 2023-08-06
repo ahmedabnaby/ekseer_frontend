@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 function Questions() {
@@ -71,24 +70,13 @@ function Questions() {
     };
     return (
         <div>
-            <div className="bradcam_area breadcam_bg_1">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xl-12">
-                            <div className="bradcam_text">
-                                <h3>Pre-consultation</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div className="depertment_area">
                 <div className="container">
                     <div className="row custom_align align-items-end justify-content-between">
                         <div className="col-lg-6">
                             <div className="section_title">
-                                <h3>Before you start the call with our specialists</h3>
-                                <h6 className="mb-4">You need to answer a few questions in order to escalate your condition.</h6>
+                                <h3 className="purple_c">Before you start the call with our specialists</h3>
+                                <h6 className="purple_c mb-4">You need to answer a few questions in order to escalate your condition.</h6>
                             </div>
                         </div>
                         <div className="col-lg-6 mt-4">
@@ -163,120 +151,9 @@ function Questions() {
                                 &nbsp; <input type="radio" id="no" name="yesOrNo10" defaultValue="NO" />
                                 &nbsp; <label htmlFor="no">No</label><br />
                                 <br />
+                                <a href="#" className="boxed-btn">Request Consultation</a>
                             </form>
 
-                        </div>
-                    </div>
-                    <div className="dept_main_info white-bg">
-                        <div className="tab-content" id="myTabContent">
-                            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                {/* single_content  */}
-                                <div className="row align-items-center">
-                                    <div className="col-lg-5">
-                                        <div className="dept_thumb">
-                                            <img src="img/banner/2.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-7">
-                                        <div className="dept_info">
-                                            <h3>Dentist with surgical mask holding <br /> scaler near patient</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-                                            <a href="#" className="boxed-btn">Make An Appointment</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* single_content  */}
-                            </div>
-                            <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                {/* single_content  */}
-                                <div className="row align-items-center">
-                                    <div className="col-lg-5">
-                                        <div className="dept_thumb">
-                                            <img src="img/department/1.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-7">
-                                        <div className="dept_info">
-                                            <h3>Dentist with surgical mask holding <br /> scaler near patient</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-                                            <a href="#" className="boxed-btn">Make An Appointment</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* single_content  */}
-                            </div>
-                            <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                {/* single_content  */}
-                                <div className="row align-items-center">
-                                    <div className="col-lg-5">
-                                        <div className="dept_thumb">
-                                            <img src="img/department/1.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-7">
-                                        <div className="dept_info">
-                                            <h3>Dentist with surgical mask holding <br /> scaler near patient</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-                                            <a href="#" className="boxed-btn">Make An Appointment</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* single_content  */}
-                            </div>
-                            <div className="tab-pane fade" id="Astrology" role="tabpanel" aria-labelledby="Astrology-tab">
-                                {/* single_content  */}
-                                <div className="row align-items-center">
-                                    <div className="col-lg-5">
-                                        <div className="dept_thumb">
-                                            <img src="img/department/1.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-7">
-                                        <div className="dept_info">
-                                            <h3>Dentist with surgical mask holding <br /> scaler near patient</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-                                            <a href="#" className="boxed-btn">Make An Appointment</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* single_content  */}
-                            </div>
-                            <div className="tab-pane fade" id="Neuroanatomy" role="tabpanel" aria-labelledby="Neuroanatomy-tab">
-                                {/* single_content  */}
-                                <div className="row align-items-center">
-                                    <div className="col-lg-5">
-                                        <div className="dept_thumb">
-                                            <img src="img/department/1.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-7">
-                                        <div className="dept_info">
-                                            <h3>Dentist with surgical mask holding <br /> scaler near patient</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-                                            <a href="#" className="boxed-btn">Make An Appointment</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* single_content  */}
-                            </div>
-                            <div className="tab-pane fade" id="Blood" role="tabpanel" aria-labelledby="Blood-tab">
-                                {/* single_content  */}
-                                <div className="row align-items-center">
-                                    <div className="col-lg-5">
-                                        <div className="dept_thumb">
-                                            <img src="img/department/1.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div className="col-lg-7">
-                                        <div className="dept_info">
-                                            <h3>Dentist with surgical mask holding <br /> scaler near patient</h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
-                                            <a href="#" className="boxed-btn">Make An Appointment</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* single_content  */}
-                            </div>
                         </div>
                     </div>
                 </div>

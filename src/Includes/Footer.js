@@ -30,7 +30,7 @@ class Footer extends React.Component {
                           <i className="ti-twitter-alt" />
                         </a>
                       </li>
-                      <li>
+                      {/* <li>
                         <a href="#">
                           <i className="fa fa-dribbble" />
                         </a>
@@ -39,12 +39,12 @@ class Footer extends React.Component {
                         <a href="#">
                           <i className="fa fa-instagram" />
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </div>
               </div>
-              <div className="col-xl-8 col-md-6 col-lg-4 popup_box" id='footer_contact_form'>
+              {/* <div className="col-xl-8 col-md-6 col-lg-4 popup_box" id='footer_contact_form'>
                 <h3 style={{color:'#24ab94'}}>
                   Reach out to us
                   <span>Here!</span>
@@ -68,7 +68,10 @@ class Footer extends React.Component {
                     </div>
                   </div>
                 </form>
-              </div>
+              </div> */}
+            </div>
+            <div className="row justify-content-center">
+              <a href="/contact-us" className="boxed-btn">Contact us</a>
             </div>
           </div>
         </div>

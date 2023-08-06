@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 function Login() {
-    const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
+    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
+    
     const [errors, setErrors] = useState([]);
     const [user, setUser] = useState(null);
     const nav = useNavigate();

@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 function Register() {
-    const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
+    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
     const [copyOfIqamaErrors, setcopyOfIqamaErrors] = useState([]);
     const [emailErrors, setEmailErrors] = useState([]);
     const [iqamaNumberErrors, setIqamaNumberErrors] = useState([]);

@@ -34,7 +34,9 @@ function HomePage() {
                             <h6 id='welcome-text'>Welcome {user.full_name}</h6>
                         }
                         <div className="section_title mb-55 text-center">
-                            <h3>Ekseer</h3>
+                            <h6>Are you a doctor?<a href='#' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
+
+                            <h3 className='mt-5'>Ekseer</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                         </div>
                     </div>
@@ -50,8 +52,10 @@ function HomePage() {
                             {user === null || user === "New User" ?
                                 <a href="/register" className="boxed-btn mt-4">Register now!</a>
                                 :
-                                <div className="boxed-btn mt-4" onClick={navigateWithData}>Start your sonsultation!</div>
+                                <div className="boxed-btn mt-4" onClick={navigateWithData}>Start your consultation!</div>
                             }
+                            <h6 className='mt-5'>Have an account?<a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
+
                         </div>
                     </div>
                 </div>
