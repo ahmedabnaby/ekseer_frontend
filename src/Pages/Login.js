@@ -1,13 +1,73 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { Component, useState, useEffect, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 function Login() {
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
-    
+
     const [errors, setErrors] = useState([]);
     const [user, setUser] = useState(null);
     const nav = useNavigate();
+    const location = useLocation();
+
+    const [visible, setVisible] = useState(false);
+
+    const Popup = ({ handleClose }) => {
+
+        const navOut = () => {
+            if (location.state == null) {
+                nav("/login", {
+                    state: {
+                        setUser: null
+                    }
+                });
+            }
+            else {
+                nav("/login", {
+                    state: {
+                        setUser: location.state.setCurrectUser
+                    }
+                });
+            }
+            console.log(user)
+
+        }
+        const modalRef = useRef(null);
+
+        const closeWithAnimation = () => {
+            if (modalRef.current) {
+                modalRef.current.classList.add("closing");
+                modalRef.current.classList.remove("closing");
+                handleClose();
+                navOut()
+            }
+        }; return (
+            <div ref={modalRef} className="graphpop">
+                <div className="content">
+                    <div className="logo-img">
+                        <a href="/">
+                            <img src="img/icons/stop.gif" alt="" />
+                        </a>
+                    </div>
+                    <h2><span style={{ color: "#ba8abb" }}>Wrong</span> Credentials! </h2>
+                    <div className="cancel-btn">
+                        <img src="img/icons/cancel.png" id="cancel-here" onClick={closeWithAnimation} />
+                    </div>
+                </div>
+                {setTimeout(() => {
+                    closePopup()
+                    nav("/login")
+                }, 2000)}
+            </div>
+        );
+    };
+
+    const showPopup = () => {
+        setVisible(true);
+    };
+    const closePopup = () => {
+        setVisible(false);
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         var bodyFormData = new FormData();
@@ -22,27 +82,25 @@ function Login() {
             .then(function (response) {
                 console.log(response.data.user);
                 setUser(response.data.user);
-                nav("/",{
+                nav("/", {
                     state: {
                         setUser: response.data.user,
                     }
-                  });
+                });
                 console.log(response);
             })
             .catch(function (response) {
                 console.log(response)
                 if (response.response.data.non_field_errors) {
                     setErrors(response.response.data.non_field_errors[0])
+                    showPopup()
                 }
                 else {
                     return;
                 }
             });
 
-        };
-        useEffect(() => {
-            console.log(user)
-        });
+    };
     return (
         <div className="book_apointment_area">
             <div className="container">
@@ -55,7 +113,7 @@ function Login() {
                                     <span>Here!</span>
                                 </h3>
                                 <form onSubmit={handleSubmit}>
-                                    <p className="error">{errors.length > 0 ? `${errors}` : ""}</p>
+                                    {/* <p className="error">{errors.length > 0 ? `${errors}` : ""}</p> */}
                                     <div className="row">
                                         <div className="col-xl-6">
                                             <label htmlFor="iqama_number">ID/Iqama Number</label>
@@ -79,6 +137,7 @@ function Login() {
                                             </div>
                                         </div>
                                     </div>
+                                    {visible && <Popup handleClose={closePopup} />}
                                 </form>
                             </div>
                         </div>

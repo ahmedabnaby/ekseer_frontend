@@ -34,7 +34,7 @@ function HomePage() {
                             <h6 id='welcome-text'>Welcome {user.full_name}</h6>
                         }
                         <div className="section_title mb-55 text-center">
-                            <h6>Are you a doctor?<a href='#' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
+                            <h6>Are you a doctor?<a href='/register-as-doctor' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
 
                             <h3 className='mt-5'>Ekseer</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>

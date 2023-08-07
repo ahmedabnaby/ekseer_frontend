@@ -2196,7 +2196,10 @@ h3 {
 .react-datepicker-wrapper {
   display: block !important;
 }
-
+.app{
+  height: 100vh;
+  background-color: #953e92cc;
+}
 .example-custom-input {
   background: url("../img/icons/calendar.png") no-repeat 95%;
   color: #b7b7b7 !important;
@@ -2795,7 +2798,8 @@ input[type='radio'] {
   width: 90%;
   margin: 0px auto;
   margin-top: 120px;
-  background: #953e9279 !important;
+  background: #ffffff !important;
+  z-index: 0 !important;
 }
 
 .purple_c {
@@ -3719,7 +3723,7 @@ select {
   /* line 1, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_quality.scss */
   .quality_area {
     padding-top: 120px;
-    padding-bottom: 40px;
+    padding-bottom: 10px;
   }
 }
 
@@ -3729,7 +3733,7 @@ select {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  padding: 70px 45px 63px 45px;
+  padding: 30px 45px 30px 45px;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -7048,6 +7052,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
   fill: #24ab94;
 }
 
+#mobile_number {
+  background: url(../img/icons/saudi-arabia.png) no-repeat scroll 15px 13px;
+  text-indent:50px;
+}
+
 /* Wrapper for item list */
 .bm-item-list {
   color: #b8b7ad;
@@ -7137,4 +7146,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .graphpop .content img {
   width: 65px;
   margin-bottom: 30px;
+}
+#popupHint1, #popupHint2, #popupHint3 {
+  display: none;
+  color: #3dacac;
+  transition: 0.3;
+}
+#d-none{
+  visibility: hidden;
 }

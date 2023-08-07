@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
-function Register() {
+function DoctorRegister() {
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
     const [copyOfIqamaErrors, setcopyOfIqamaErrors] = useState([]);
@@ -77,10 +77,15 @@ function Register() {
         bodyFormData.append("iqama_number", e.target.iqama_number.value);
         bodyFormData.append("password", e.target.password.value);
         bodyFormData.append("copy_of_iqama_number", e.target.copy_of_iqama.files[0]);
+        bodyFormData.append("scfhs_registration", e.target.scfhs_number.value);
+        bodyFormData.append("copy_of_scfhs_registration_card", e.target.scfhs_card.files[0]);
+        bodyFormData.append("cv", e.target.cv.files[0]);
+        bodyFormData.append("personal_photo", e.target.personal_photo.files[0]);
         bodyFormData.append("date_of_birth", e.target.birth_date.value);
         bodyFormData.append("mobile_number", e.target.mobile_number.value);
         bodyFormData.append("email", e.target.email.value);
         bodyFormData.append("nationality", e.target.nationality.value);
+        bodyFormData.append("is_doctor", true);
         axios({
             method: "post",
             url: `${BASE_URL}/register/`,
@@ -126,7 +131,7 @@ function Register() {
                         <div className="popup_box ">
                             <div className="popup_inner">
                                 <h3>
-                                    Register
+                                    Register as a doctor
                                     <span>Here!</span>
                                     <p>Note: All of the fields are required!</p>
                                 </h3>
@@ -150,19 +155,28 @@ function Register() {
                                             <p className="error">{copyOfIqamaErrors.length > 0 ? `${copyOfIqamaErrors}` : ""}</p>
                                             <input type="file" name="copy_of_iqama" id="copy_of_iqama" required />
                                         </div>
-                                        <div className="col-xl-12">
-                                            <label htmlFor="birth_date">Your Date of Birth</label>
-                                            <input type="date" name="birth_date" id="birth_date" className="example-custom-input" placeholder="YYYY-MM-DD" required />
+                                        <div className="col-xl-6">
+                                            <label htmlFor="scfhs_number">SCFHS Registration #</label>
+                                            <input type="text" name="scfhs_number" id="scfhs_number" placeholder="SCFHS Registration number" required />
+                                        </div>
+                                        <div className="col-xl-6">
+                                            <label htmlFor="scfhs_card">Copy of SCFHS Registration Card</label>
+                                            {/* <p className="error">{copyOfIqamaErrors.length > 0 ? `${copyOfIqamaErrors}` : ""}</p> */}
+                                            <input type="file" name="scfhs_card" id="scfhs_card" required />
+                                        </div>
+                                        <div className="col-xl-6">
+                                            <label htmlFor="email">Your Email Address</label>
+                                            <p className="error">{emailErrors.length > 0 ? `${emailErrors}` : ""}</p>
+                                            <input type="email" name="email" id="email" placeholder="Email Address" required />
                                         </div>
                                         <div className="col-xl-6">
                                             <label htmlFor="mobile_number">Your Mobile Number</label>
                                             <p className="error">{mobileNumberErrors.length > 0 ? `${mobileNumberErrors}` : ""}</p>
                                             <input type="number" id="mobile_number" name="mobile_number" placeholder="Mobile Number" required />
                                         </div>
-                                        <div className="col-xl-6">
-                                            <label htmlFor="email">Your Email Address</label>
-                                            <p className="error">{emailErrors.length > 0 ? `${emailErrors}` : ""}</p>
-                                            <input type="email" name="email" id="email" placeholder="Email Address" required />
+                                        <div className="col-xl-12">
+                                            <label htmlFor="birth_date">Your Date of Birth</label>
+                                            <input type="date" name="birth_date" id="birth_date" className="example-custom-input" placeholder="YYYY-MM-DD" required />
                                         </div>
                                         <div className="col-xl-12">
                                             <label htmlFor="default-select">Your Nationality</label>
@@ -419,7 +433,16 @@ function Register() {
 
                                             </select>
                                         </div>
-
+                                        <div className="col-xl-6">
+                                            <label htmlFor="cv">CV/Resume</label>
+                                            {/* <p className="error">{copyOfIqamaErrors.length > 0 ? `${copyOfIqamaErrors}` : ""}</p> */}
+                                            <input type="file" name="cv" id="cv" required />
+                                        </div>
+                                        <div className="col-xl-6">
+                                            <label htmlFor="personal_photo">Your Personal Photo</label>
+                                            {/* <p className="error">{copyOfIqamaErrors.length > 0 ? `${copyOfIqamaErrors}` : ""}</p> */}
+                                            <input type="file" name="personal_photo" id="personal_photo" required />
+                                        </div>
                                         <div className="col-xl-12 mt-4">
                                             <div className="switch-wrap d-flex">
                                                 <div className="primary-checkbox">
@@ -454,4 +477,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default DoctorRegister;
