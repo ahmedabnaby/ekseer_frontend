@@ -4,7 +4,25 @@ import axios from 'axios';
 function DoctorsList() {
     const location = useLocation();
     const nav = useNavigate();
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    console.log(location.state)
+    var user = null;
+    if (location.state == null) {
+        user = null;
+    }
+    else {
+        user = location.state.setUser;
+    }
+    const [currectUser, setCurrectUser] = useState(null);
+    const navigateWithData = () => {
+        setCurrectUser(user);
+        nav("/video-room", {
+            state: {
+                setCurrectUser: user,
+            }
+        });
+    }
+    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
     const [doctors, setDoctors] = useState([]);
     const fetchAvailableDoctors = async () => {
         await axios.get(`${BASE_URL}/users/`).then((response) => {
@@ -24,8 +42,9 @@ function DoctorsList() {
                             <h4>Available Doctors</h4>
                             {doctors.map((doctor) => (
                                 <div key={doctor.id}>
-                                    {doctor.is_doctor ==true ?
+                                    {doctor.is_doctor ?
                                         <div className="comment-list">
+                                            {console.log(doctor)}
                                             <div className="single-comment justify-content-between d-flex">
                                                 <div className="user justify-content-between d-flex">
                                                     <div className="thumb">
@@ -44,7 +63,7 @@ function DoctorsList() {
                                                                 <p className="date">December 4, 2017 at 3:12 pm </p>
                                                             </div>
                                                             <div className="reply-btn">
-                                                                <a href="#" className="btn-reply text-uppercase">reply</a>
+                                                                <div onClick={navigateWithData} className="btn-reply text-uppercase">Call</div>
                                                             </div>
                                                         </div>
                                                     </div>

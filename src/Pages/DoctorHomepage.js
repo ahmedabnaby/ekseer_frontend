@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 function HomePage() {
     const location = useLocation();
     const nav = useNavigate();
-    console.log(location.state)
     var user = null;
     if (location.state == null) {
         user = null;
@@ -16,15 +15,12 @@ function HomePage() {
     const [currectUser, setCurrectUser] = useState(null);
     const navigateWithData = () => {
         setCurrectUser(user);
-        nav("/questions", {
+        nav("/video-room", {
             state: {
                 setCurrectUser: user,
             }
         });
     }
-    useEffect(() => {
-        console.log(user)
-    });
     return (
         <div className="quality_area">
             <div className="container">
@@ -34,34 +30,26 @@ function HomePage() {
                             <h6 id='welcome-text'>Welcome {user.full_name}</h6>
                         }
                         <div className="section_title mb-55 text-center">
-                            {user === null || user === "New User" ?
-                                <h6>Are you a doctor?<a href='/register-as-doctor' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
-                                :
-                                ""}
-
-                            <h3 className='mt-5'>Ekseer</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                            <h3 className='mt-5'>Join us now!</h3>
+                            <p>You must read our <a href="#" style={{color:"#BA8ABB"}}>prerequisites.</a>.</p>
                         </div>
                     </div>
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-lg-4 col-md-6">
                         <div className="single_quality">
-                            <div className="icon">
+                            <div className="icon" style={{backgroundImage:"-webkit-linear-gradient(90deg, #BA8ABB 0%, #BA8ABB 100%)"}}>
                                 <i className="flaticon-doctor"></i>
                             </div>
-                            <h3>Start Consultation</h3>
+                            <h3>Ready to receive calls?</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
                             {user === null || user === "New User" ?
-                                <a href="/register" className="boxed-btn mt-4">Register now!</a>
+                                <a href="/register" style={{background:"#BA8ABB", border:'#BA8ABB'}} className="boxed-btn mt-4">Register now!</a>
                                 :
-                                <div className="boxed-btn mt-4" onClick={navigateWithData}>Start your consultation!</div>
+                                <div className="boxed-btn mt-4" style={{background:"#BA8ABB", border:'#BA8ABB'}} onClick={navigateWithData}>Start accepting calls!</div>
                             }
-                        {user === null || user === "New User" ? <h6 className='mt-5'>Have an account?<a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6> 
-                        :
+                            <h6 className='mt-5'>Have an account?<a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
 
-                            ""
-                        }
                         </div>
                     </div>
                 </div>

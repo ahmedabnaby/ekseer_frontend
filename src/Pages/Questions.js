@@ -107,7 +107,12 @@ function Questions() {
         var popUpSelector = document.querySelector("#d-none")
         popUpSelector.style.visibility = "visible"
         setTimeout(() => {
-            nav("/available-doctors")
+            // nav("/available-doctors")
+                nav("/available-doctors", {
+                    state: {
+                        setUser: location.state.setCurrectUser
+                    }
+                });
         }, 2000)
         console.log(popUpSelector)
     };

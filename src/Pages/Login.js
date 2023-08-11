@@ -2,8 +2,8 @@ import React, { Component, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 function Login() {
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
+    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
 
     const [errors, setErrors] = useState([]);
     const [user, setUser] = useState(null);
@@ -81,12 +81,22 @@ function Login() {
         })
             .then(function (response) {
                 console.log(response.data.user);
+                if(response.data.user.is_doctor){
+                setUser(response.data.user);
+                nav("/doctor-homepage", {
+                    state: {
+                        setUser: response.data.user,
+                    }
+                });
+            }
+            else{
                 setUser(response.data.user);
                 nav("/", {
                     state: {
                         setUser: response.data.user,
                     }
                 });
+            }
                 console.log(response);
             })
             .catch(function (response) {
