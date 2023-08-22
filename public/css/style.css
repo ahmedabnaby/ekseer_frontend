@@ -43,6 +43,12 @@
   background-image: -ms-linear-gradient(0deg, #24ab94 0%, #953e92 100%);
 }
 
+.copy-icon-bg {
+  outline: none;
+  background: transparent;
+  border: none;
+}
+
 /* Normal desktop :1200px. */
 /* Normal desktop :992px. */
 /* Tablet desktop :768px. */
@@ -92,6 +98,7 @@ body {
   -o-transition: 0.3s;
   transition: 0.3s;
 }
+
 /* line 17, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/theme-default.scss */
 a,
 .button,
@@ -2195,10 +2202,12 @@ h3 {
 .react-datepicker-wrapper {
   display: block !important;
 }
-.app{
+
+.app {
   height: 100vh;
   background-color: #953e92cc;
 }
+
 .example-custom-input {
   background: url("../img/icons/calendar.png") no-repeat 95%;
   color: #b7b7b7 !important;
@@ -2829,7 +2838,7 @@ input[type='radio'] {
   font-weight: normal;
   width: 100% !important;
   /* height: 42px; */
-  line-height: 60px;
+  line-height: 45px;
   outline: none;
   padding-left: 12px;
   padding-right: 30px;
@@ -5148,6 +5157,18 @@ h6 {
   padding-right: 40px;
 }
 
+.bg-white,
+.bg-red-650,
+.bg-gray-650, .border-gray-300,.bg-gray-150, .b-none {
+  border: none !important;
+}
+
+.b-transparent{
+  background-color: transparent !important;
+}
+
+
+
 /* line 1008, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_elements.scss */
 .default-select .nice-select .list {
   margin-top: 0;
@@ -7053,7 +7074,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 #mobile_number {
   background: url(../img/icons/saudi-arabia.png) no-repeat scroll 15px 13px;
-  text-indent:50px;
+  text-indent: 50px;
 }
 
 /* Wrapper for item list */
@@ -7134,7 +7155,18 @@ Note: Beware of modifying this element as it can break the animations - you shou
   text-align: center;
   margin: 25px;
 }
+a{
+  display: inline-block;
+}
 
+[type='checkbox']:checked:hover, [type='checkbox']:checked:focus, [type='radio']:checked:hover, [type='radio']:checked:focus, [type='checkbox']:checked, [type='radio']:checked {
+  border-color: transparent !important;
+  background-color: #24ab94 !important;
+}
+.hintIcon{
+  display: inline-block !important;
+  margin-bottom: 15px;
+}
 #cancel-here {
   position: absolute;
   top: 15px;
@@ -7146,11 +7178,15 @@ Note: Beware of modifying this element as it can break the animations - you shou
   width: 65px;
   margin-bottom: 30px;
 }
-#popupHint1, #popupHint2, #popupHint3 {
+
+#popupHint1,
+#popupHint2,
+#popupHint3 {
   display: none;
   color: #3dacac;
   transition: 0.3;
 }
-#d-none{
+
+#d-none {
   visibility: hidden;
 }

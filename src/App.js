@@ -12,7 +12,8 @@ import ClockLoader from "react-spinners/ClockLoader";
 import DoctorRegister from './Pages/DoctorRegister';
 import DoctorsList from './Pages/DoctorsList';
 import DoctorHomepage from './Pages/DoctorHomepage';
-import { VideoRoom } from './Pages/VideoRoom';
+import { NewCalls } from './Pages/NewCalls';
+import Signaling from './Signaling';
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -58,10 +59,11 @@ function App() {
               <Route path="/contact-us" element={<Contact />} />
               <Route path="/available-doctors" element={<DoctorsList />} />
               <Route path="/doctor-homepage" element={<DoctorHomepage />} />
-              <Route path="/video-room" element={<VideoRoom />} />
               <Route path="/logout" element={<Logout />} />
+              <Route path="/calls" element={<NewCalls />} />
+              <Route path="/signaling" element={<Signaling />} />
             </Routes>
-            <Footer />
+            {/* <Footer /> */}
           </BrowserRouter>
       }
 

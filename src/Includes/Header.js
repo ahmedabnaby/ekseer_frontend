@@ -62,7 +62,7 @@ function Header() {
                             </ul>
                           </li>
                           <li>
-                            <a href="contact.html">Contact</a>
+                            <a href="/contact-us">Contact</a>
                           </li>
                         </ul>
                       </nav>
@@ -82,7 +82,7 @@ function Header() {
                   <Menu>
                     <a id="home" className="menu-item" href="/">Home</a>
                     <a id="about" className="menu-item" href="/about">About</a>
-                    <a id="contact" className="menu-item" href="/contact">Contact</a>
+                    <a id="contact" className="menu-item" href="/contact-us">Contact</a>
                     { user === null || user === "New User"? "" : 
                       <a id="logout" className="menu-item" href="/logout">Logout</a>
                     }

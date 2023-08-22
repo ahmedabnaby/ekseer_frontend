@@ -35,7 +35,7 @@ function HomePage() {
                         }
                         <div className="section_title mb-55 text-center">
                             {user === null || user === "New User" ?
-                                <h6>Are you a doctor?<a href='/register-as-doctor' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
+                                <h6>Are you a doctor? <a href='/register-as-doctor' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
                                 :
                                 ""}
 
@@ -57,7 +57,7 @@ function HomePage() {
                                 :
                                 <div className="boxed-btn mt-4" onClick={navigateWithData}>Start your consultation!</div>
                             }
-                        {user === null || user === "New User" ? <h6 className='mt-5'>Have an account?<a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6> 
+                        {user === null || user === "New User" ? <h6 className='mt-5'>Have an account? <a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6> 
                         :
 
                             ""

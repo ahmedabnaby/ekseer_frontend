@@ -2,8 +2,8 @@ import React, { Component, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 function DoctorRegister() {
-    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
+    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
     const [copyOfIqamaErrors, setcopyOfIqamaErrors] = useState([]);
     const [emailErrors, setEmailErrors] = useState([]);
     const [iqamaNumberErrors, setIqamaNumberErrors] = useState([]);

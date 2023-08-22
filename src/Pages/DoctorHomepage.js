@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
+import { NewCalls } from './NewCalls';
 function HomePage() {
     const location = useLocation();
     const nav = useNavigate();
@@ -12,12 +13,12 @@ function HomePage() {
     else {
         user = location.state.setUser;
     }
-    const [currectUser, setCurrectUser] = useState(null);
+    const [currectUser, setUser] = useState(null);
     const navigateWithData = () => {
-        setCurrectUser(user);
-        nav("/video-room", {
+        setUser(user);
+        nav("/calls", {
             state: {
-                setCurrectUser: user,
+                setUser: user,
             }
         });
     }
@@ -47,6 +48,7 @@ function HomePage() {
                                 <a href="/register" style={{background:"#BA8ABB", border:'#BA8ABB'}} className="boxed-btn mt-4">Register now!</a>
                                 :
                                 <div className="boxed-btn mt-4" style={{background:"#BA8ABB", border:'#BA8ABB'}} onClick={navigateWithData}>Start accepting calls!</div>
+                                // <NewCalls setLoggedInUser={location.state.setUser} />
                             }
                             <h6 className='mt-5'>Have an account?<a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
 

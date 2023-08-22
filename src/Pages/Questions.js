@@ -108,7 +108,7 @@ function Questions() {
         popUpSelector.style.visibility = "visible"
         setTimeout(() => {
             // nav("/available-doctors")
-                nav("/available-doctors", {
+                nav("/signaling", {
                     state: {
                         setUser: location.state.setCurrectUser
                     }
