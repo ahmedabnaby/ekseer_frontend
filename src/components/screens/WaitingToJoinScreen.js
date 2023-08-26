@@ -41,7 +41,7 @@ const WaitingToJoinScreen = () => {
 
   return (
     <div
-      className="bg-gray-800"
+      className="bg-gray-800 inset-mt"
       style={{
         display: "flex",
         alignItems: "center",

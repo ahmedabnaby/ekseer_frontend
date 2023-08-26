@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
+import Footer from '../Includes/Footer'
 function HomePage() {
     const location = useLocation();
     const nav = useNavigate();
@@ -66,6 +67,7 @@ function HomePage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

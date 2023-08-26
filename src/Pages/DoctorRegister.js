@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
+import Footer from "../Includes/Footer"
+
 function DoctorRegister() {
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
@@ -460,7 +462,7 @@ function DoctorRegister() {
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12">
                                                     <p className="copy_right text-left">
-                                                        Already have an account? Login
+                                                        Already have an account? Login&nbsp;
                                                         <a href="/login" style={{ color: "#ba8abb" }}> here</a>
                                                     </p>
                                                 </div>
@@ -473,6 +475,7 @@ function DoctorRegister() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

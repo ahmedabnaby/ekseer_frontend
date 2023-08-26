@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
+import Footer from "../Includes/Footer"
+
 function Register() {
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
@@ -450,6 +452,7 @@ function Register() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

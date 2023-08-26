@@ -4,6 +4,8 @@ import { LeaveScreen } from "./components/screens/LeaveScreen";
 import { JoiningScreen } from "./components/screens/JoiningScreen";
 import { MeetingContainer } from "./meeting/MeetingContainer";
 import { MeetingAppProvider } from "./MeetingAppContextDef";
+import { useNavigate, useLocation } from "react-router-dom";
+
 
 const Signaling = (callMeetingId) => {
   const [token, setToken] = useState("");
@@ -24,7 +26,8 @@ const Signaling = (callMeetingId) => {
   const isMobile = window.matchMedia(
     "only screen and (max-width: 768px)"
   ).matches;
-
+  const nav = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (isMobile) {
@@ -78,7 +81,17 @@ const Signaling = (callMeetingId) => {
           </MeetingProvider>
         </MeetingAppProvider>
       ) : isMeetingLeft ? (
+        <>
+        {location.state.setUser.is_doctor?
+        nav("/doctor-homepage", {
+          state: {
+              setUser: location.state.setUser
+          }
+      })
+        :
         <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} />
+        }
+        </>
       ) : (
         callMeetingId.callMeetingId==undefined?
         <JoiningScreen

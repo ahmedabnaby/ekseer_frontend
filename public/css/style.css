@@ -2794,6 +2794,9 @@ input[type='radio'] {
 .popup_box textarea {
   height: 160px;
 }
+.popup_box textarea::placeholder {
+  color: #c4c4c4;
+}
 
 /* line 79, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_bradcam.scss */
 .popup_box input::placeholder {

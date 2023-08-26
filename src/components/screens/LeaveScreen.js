@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export function LeaveScreen({ setIsMeetingLeft }) {
   return (
-    <div className="bg-gray-800 h-screen flex flex-col flex-1 items-center justify-center">
+    <div className="inset-mt bg-gray-800 h-screen flex flex-col flex-1 items-center justify-center">
       <h1 className="text-white text-4xl">You left the meeting!</h1>
       <div className="mt-12">
         <button
@@ -11,7 +11,7 @@ export function LeaveScreen({ setIsMeetingLeft }) {
             setIsMeetingLeft(false);
           }}
         >
-          Rejoin the Meeting
+          Go Back!
         </button>
       </div>
     </div>

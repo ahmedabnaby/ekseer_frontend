@@ -1,8 +1,6 @@
-
-
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
-import { NewCalls } from './NewCalls';
+import Footer from "../Includes/Footer"
 function HomePage() {
     const location = useLocation();
     const nav = useNavigate();
@@ -50,12 +48,13 @@ function HomePage() {
                                 <div className="boxed-btn mt-4" style={{background:"#BA8ABB", border:'#BA8ABB'}} onClick={navigateWithData}>Start accepting calls!</div>
                                 // <NewCalls setLoggedInUser={location.state.setUser} />
                             }
-                            <h6 className='mt-5'>Have an account?<a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
+                            <h6 className='mt-5'>Have an account? <a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
 
                         </div>
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

@@ -23,6 +23,9 @@ export function MeetingDetailsScreen({
   const location = useLocation();
   participantName = location.state.setUser.full_name
   // console.log(callMeetingId)
+  const goBack = () =>{
+    window.history.go(-1);
+  }
   return (
     <div
       className={`flex flex-1 flex-col justify-center w-full md:p-[6px] sm:p-1 p-1.5`}
@@ -106,6 +109,7 @@ export function MeetingDetailsScreen({
         <div className="w-full md:mt-0 mt-4 flex flex-col">
           <div className="flex items-center justify-center flex-col w-full ">
             {location.state.setUser.is_doctor==false?
+            <>
             <button
               className="w-full bg-purple-350 text-white px-2 py-3 rounded-xl"
               onClick={async (e) => {
@@ -134,6 +138,10 @@ export function MeetingDetailsScreen({
             >
               Request a doctor
             </button>
+            <button onClick={goBack} style={{ color: "#ba8abb", marginTop:'25px' }}>Go Back</button>
+
+            {/* <a href="/login" style={{ color: "#ba8abb" }}>Go Back?</a> */}
+            </>
             :
             ""
             }

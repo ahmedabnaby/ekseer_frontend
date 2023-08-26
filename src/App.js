@@ -14,6 +14,8 @@ import DoctorsList from './Pages/DoctorsList';
 import DoctorHomepage from './Pages/DoctorHomepage';
 import { NewCalls } from './Pages/NewCalls';
 import Signaling from './Signaling';
+import ForgetPassword from './Pages/ForgetPassword';
+import ForgetPasswordForm from './Pages/ForgetPasswordForm';
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -55,6 +57,9 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/register-as-doctor" element={<DoctorRegister />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/forget-password" element={<ForgetPassword />} />
+              {/* <Route path="/details/:id" component={DetailsPage}/> */}
+              <Route path="/forget-password-form/:token" element={<ForgetPasswordForm/>} />
               <Route path="/questions" element={<Questions />} />
               <Route path="/contact-us" element={<Contact />} />
               <Route path="/available-doctors" element={<DoctorsList />} />

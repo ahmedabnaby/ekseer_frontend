@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Footer from '../Includes/Footer'
 
 
 function Questions() {
@@ -290,7 +291,7 @@ function Questions() {
                     </div>
                 </div>
             </div>
-
+            <Footer/>
         </div>
     );
 }

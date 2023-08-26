@@ -8,7 +8,9 @@
 ::-webkit-scrollbar {
   width: 4px;
 }
-
+.inset-mt{
+  margin-top:65px !important;
+}
 ::-webkit-scrollbar-track {
   background: "transparent";
   /* #212032; */

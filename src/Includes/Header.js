@@ -1,14 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import { slide as Menu } from 'react-burger-menu'
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 function Header() {
   const location = useLocation();
+  const nav = useNavigate();
+  const [currectUser, setUser] = useState(null);
+
   console.log(location.state)
   if (location.state == null) {
     var user = null;
   }
   else {
-    var user = location.state.setUser;
+    if (location.state.setUser == undefined) {
+      var user = location.state.setCurrectUser;
+    }
+    else {
+      var user = location.state.setUser;
+    }
+  }
+  const navigateWithData = () => {
+    console.log("UUUUSER", user)
+    if (location.state == null) {
+      var user = null;
+      nav("/");
+    }
+    else {
+      if (location.state.setUser == undefined) {
+        var user = location.state.setCurrectUser;
+      }
+      else {
+        var user = location.state.setUser;
+      }
+      setUser(user);
+      if (user.is_doctor == false) {
+        nav("/", {
+          state: {
+            setUser: user,
+          }
+        });
+      }
+      else {
+        nav("/doctor-homepage", {
+          state: {
+            setUser: user,
+          }
+        });
+      }
+    }
+    console.log("UUUUUUUUUUUUUUUUUUUUSER", user)
   }
   return (
     <header>
@@ -18,9 +57,9 @@ function Header() {
             <div className="row align-items-center">
               <div className="col-xl-3 col-lg-3">
                 <div className="logo-img">
-                  <a href="/">
-                    <img src="img/logo.png" alt="" />
-                  </a>
+                  <div onClick={navigateWithData}>
+                    <img src="/img/logo.png" alt="" />
+                  </div>
                 </div>
               </div>
               <div className="col-xl-9 col-lg-9">
@@ -30,7 +69,9 @@ function Header() {
                       <nav>
                         <ul id="navigation">
                           <li>
-                            <a href="/">home</a>
+                            <div onClick={navigateWithData}>
+                              home
+                            </div>
                           </li>
                           <li>
                             <a href="about.html">About</a>
@@ -83,7 +124,7 @@ function Header() {
                     <a id="home" className="menu-item" href="/">Home</a>
                     <a id="about" className="menu-item" href="/about">About</a>
                     <a id="contact" className="menu-item" href="/contact-us">Contact</a>
-                    { user === null || user === "New User"? "" : 
+                    {user === null || user === "New User" ? "" :
                       <a id="logout" className="menu-item" href="/logout">Logout</a>
                     }
                     {/* <img src="img/logo.png" alt="" /> */}
