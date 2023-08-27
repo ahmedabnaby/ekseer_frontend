@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import Signaling from "../Signaling";
-import Footer from "../Includes/Footer"
+// import Footer from "../Includes/Footer"
 
 
 export const NewCalls = () => {
@@ -79,11 +79,6 @@ export const NewCalls = () => {
     }
     useEffect(() => {
         fetchCallsAndPatients()
-        // const intervalId = setInterval(() => {
-        //     fetchNewCalls(); // Load data every 6 sec (adjust the interval as needed)
-        // }, 16000); // 6 sec in milliseconds
-
-        // return () => clearInterval(intervalId);
     }, []);
     return (
         <>
@@ -141,7 +136,7 @@ export const NewCalls = () => {
                 </div>
             </div>
         </section>
-            <Footer/>
+            {/* <Footer/> */}
             </>
     )
 }

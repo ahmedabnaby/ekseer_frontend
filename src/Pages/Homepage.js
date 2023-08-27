@@ -2,11 +2,17 @@
 
 import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import Footer from '../Includes/Footer'
+
 function HomePage() {
+    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
+
     const location = useLocation();
     const nav = useNavigate();
     console.log(location.state)
+
     var user = null;
     if (location.state == null) {
         user = null;
@@ -14,7 +20,9 @@ function HomePage() {
     else {
         user = location.state.setUser;
     }
+
     const [currectUser, setCurrectUser] = useState(null);
+    const [thisUser, setUsers] = useState(null);
     const navigateWithData = () => {
         setCurrectUser(user);
         nav("/questions", {
@@ -23,16 +31,30 @@ function HomePage() {
             }
         });
     }
+    const retrieveCurrentUser = async () => {
+        await axios.get(`${BASE_URL}/users/`)
+            .then((response) => {
+                console.log(response)
+                setUsers(response.data);
+            })
+    }
     useEffect(() => {
-        console.log(user)
-    });
+        retrieveCurrentUser()
+    }, []);
     return (
         <div className="quality_area">
+            {console.log(thisUser)}
+
             <div className="container">
                 <div className="row justify-content-center ">
                     <div className="col-lg-6">
                         {user === null || user === "New User" ? "" :
-                            <h6 id='welcome-text'>Welcome {user.full_name}</h6>
+                            <h6 id='welcome-text'>Welcome {thisUser?.map((patient) => (
+                                location.state.setUser.id == patient.id ?
+                                    patient.full_name
+                                    :
+                                    ""
+                            ))}</h6>
                         }
                         <div className="section_title mb-55 text-center">
                             {user === null || user === "New User" ?
@@ -58,11 +80,11 @@ function HomePage() {
                                 :
                                 <div className="boxed-btn mt-4" onClick={navigateWithData}>Start your consultation!</div>
                             }
-                        {user === null || user === "New User" ? <h6 className='mt-5'>Have an account? <a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6> 
-                        :
+                            {user === null || user === "New User" ? <h6 className='mt-5'>Have an account? <a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
+                                :
 
-                            ""
-                        }
+                                ""
+                            }
                         </div>
                     </div>
                 </div>

@@ -60,6 +60,7 @@ function ForgetPassword() {
                 {setTimeout(() => {
                     closeErrorPopup()
                     nav("/forget-password")
+                    window.location.reload()
                 }, 2000)}
             </div>
         );
