@@ -21,8 +21,8 @@ function DoctorsList() {
             }
         });
     }
+    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
     const [doctors, setDoctors] = useState([]);
     const fetchAvailableDoctors = async () => {
         await axios.get(`${BASE_URL}/users/`).then((response) => {

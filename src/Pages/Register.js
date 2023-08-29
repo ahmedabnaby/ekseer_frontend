@@ -1,42 +1,23 @@
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import Footer from "../Includes/Footer"
 
 function Register() {
+    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    // const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
+
     const [copyOfIqamaErrors, setcopyOfIqamaErrors] = useState([]);
     const [emailErrors, setEmailErrors] = useState([]);
     const [iqamaNumberErrors, setIqamaNumberErrors] = useState([]);
     const [mobileNumberErrors, setMobileNumberErrors] = useState([]);
 
     const nav = useNavigate();
-    const location = useLocation();
-    var user = null;
+    const {state} = useLocation();
 
     const [visible, setVisible] = useState(false);
 
     const Popup = ({ handleClose }) => {
-
-        const navOut = () => {
-            if (location.state == null) {
-                nav("/login", {
-                    state: {
-                        setUser: null
-                    }
-                });
-            }
-            else {
-                nav("/login", {
-                    state: {
-                        setUser: location.state.setCurrectUser
-                    }
-                });
-            }
-            console.log(user)
-
-        }
         const modalRef = useRef(null);
 
         const closeWithAnimation = () => {
@@ -44,7 +25,7 @@ function Register() {
                 modalRef.current.classList.add("closing");
                 modalRef.current.classList.remove("closing");
                 handleClose();
-                navOut()
+                nav("/login")
             }
         }; return (
             <div ref={modalRef} className="graphpop">
@@ -91,8 +72,6 @@ function Register() {
         })
             .then(function (response) {
                 showPopup()
-                // nav("/login");
-                console.log(response);
             })
             .catch(function (response) {
                 console.log(response);
@@ -114,12 +93,6 @@ function Register() {
             });
 
     };
-    // useEffect(() => {
-    //     setVisible(true);
-    //     setTimeout(() => {
-    //         nav("/login")
-    //     }, 1100)
-    // }, [])
     return (
         <div className="book_apointment_area">
             <div className="container">

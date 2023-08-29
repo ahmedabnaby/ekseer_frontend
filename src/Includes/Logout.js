@@ -3,39 +3,31 @@ import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-// const BASE_URL = 'https://ekseer.pythonanywhere.com/authentication-api';
 const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+// const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
 
-function Logout() {
-    const location = useLocation();
+const Logout = () => {
+    const { state } = useLocation();
     const nav = useNavigate();
-    const navOut = () => {
-        nav("/");
-    }
 
-    console.log(location.state)
-    if (location.state == null) {
-        console.log("HERE")
-        navOut()
-    }
-    else {
-        var user = location.state.setUser;
-        axios({
+    const logout = async () => {
+        await axios({
             method: "post",
             url: `${BASE_URL}/logout-all/`,
-            headers: { "Authorization": `Token ${user.token}` },
+            headers: { "Authorization": `Token ${state.logInToken}` },
         })
             .then(function (response) {
-                //handle success
+                nav("/");
+                window.location.reload()
             })
             .catch(function (response) {
+                console.log(response)
             });
-
     }
 
 
     useEffect(() => {
-        navOut()
+        logout()
     });
 }
 export default Logout;

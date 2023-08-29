@@ -14,16 +14,20 @@ export function MeetingDetailsScreen({
   setVideoTrack,
   onClickStartMeeting,
 }) {
+  // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
   const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+
   const [meetingId, setMeetingId] = useState("");
   const [meetingIdError, setMeetingIdError] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [iscreateMeetingClicked, setIscreateMeetingClicked] = useState(false);
   const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
-  const location = useLocation();
-  participantName = location.state.setUser.full_name
+  
+  const {state} = useLocation();
+  console.log(state)
+  participantName = "state.loggedInUser.full_name"
   // console.log(callMeetingId)
-  const goBack = () =>{
+  const goBack = () => {
     window.history.go(-1);
   }
   return (
@@ -31,7 +35,7 @@ export function MeetingDetailsScreen({
       className={`flex flex-1 flex-col justify-center w-full md:p-[6px] sm:p-1 p-1.5`}
     >
       {iscreateMeetingClicked ? (
-        <div className="border border-solid border-gray-400 rounded-xl px-4 py-3  flex items-center justify-center">
+        <div className="border border-solid border-gray-400 rounded-xl px-4 py-3  flex items-center justify-center d-none">
           <p className="text-white text-base">
             {`Meeting code : ${meetingId}`}
           </p>
@@ -54,14 +58,14 @@ export function MeetingDetailsScreen({
         </div>
       ) : isJoinMeetingClicked ? (
         <>
-        {/* {console.log(callMeetingId)} */}
+          {/* {console.log(callMeetingId)} */}
           <input
             defaultValue={callMeetingId}
             onChange={(e) => {
               setMeetingId(e.target.value);
             }}
             placeholder={"Enter meeting Id"}
-            className="px-4 py-3 bg-gray-650 rounded-xl text-white w-full text-center"
+            className="px-4 py-3 bg-gray-650 rounded-xl text-white w-full text-center d-none"
           />
           {meetingIdError && (
             <p className="text-xs text-red-600">{`Please enter valid meetingId`}</p>
@@ -72,10 +76,10 @@ export function MeetingDetailsScreen({
       {(iscreateMeetingClicked || isJoinMeetingClicked) && (
         <>
           <input
-            value={location.state.setUser.full_name}
+            value={state.loggedInUser.full_name}
             onChange={(e) => setParticipantName(e.target.value)}
             placeholder="Enter your name"
-            className="px-4 py-3 mt-5 bg-gray-650 rounded-xl text-white w-full text-center"
+            className="px-4 py-3 mt-1 bg-gray-650 rounded-xl text-white w-full text-center"
           />
 
           {/* <p className="text-xs text-white mt-1 text-center">
@@ -84,7 +88,7 @@ export function MeetingDetailsScreen({
           <button
             disabled={participantName.length < 3}
             className={`w-full ${participantName.length < 3 ? "bg-gray-650" : "bg-purple-350"
-              }  text-white px-2 py-3 rounded-xl mt-5`}
+              }  text-white px-2 py-3 rounded-xl mt-3`}
             onClick={(e) => {
               if (iscreateMeetingClicked) {
                 if (videoTrack) {
@@ -108,56 +112,56 @@ export function MeetingDetailsScreen({
       {!iscreateMeetingClicked && !isJoinMeetingClicked && (
         <div className="w-full md:mt-0 mt-4 flex flex-col">
           <div className="flex items-center justify-center flex-col w-full ">
-            {location.state.setUser.is_doctor==false?
-            <>
-            <button
-              className="w-full bg-purple-350 text-white px-2 py-3 rounded-xl"
-              onClick={async (e) => {
-                const meetingId = await _handleOnCreateMeeting();
-                setMeetingId(meetingId);
-                setIscreateMeetingClicked(true);
-                var bodyFormData = new FormData();
-                var patiend_id = location.state.setUser.id
-                bodyFormData.append("meeting_id", meetingId);
-                bodyFormData.append("doctor_id", 0);
-                bodyFormData.append("is_new", true);
-                bodyFormData.append("patient_id", patiend_id);
-                axios({
-                  method: "post",
-                  url: `${BASE_URL}/create-call/`,
-                  data: bodyFormData,
-                  headers: { "Content-Type": "multipart/form-data" },
-                })
-                  .then(function (response) {
-                    console.log(response);
-                  })
-                  .catch(function (response) {
-                    console.log(response);
-                  });
-              }}
-            >
-              Request a doctor
-            </button>
-            <button onClick={goBack} style={{ color: "#ba8abb", marginTop:'25px' }}>Go Back</button>
+            {state.loggedInUser.is_doctor === false ?
+              <>
+                <button
+                  className="w-full bg-purple-350 text-white px-2 py-3 rounded-xl"
+                  onClick={async (e) => {
+                    const meetingId = await _handleOnCreateMeeting();
+                    setMeetingId(meetingId);
+                    setIscreateMeetingClicked(true);
+                    var bodyFormData = new FormData();
+                    var patiend_id = state.loggedInUser.id
+                    bodyFormData.append("meeting_id", meetingId);
+                    bodyFormData.append("doctor_id", 0);
+                    bodyFormData.append("is_new", true);
+                    bodyFormData.append("patient_id", patiend_id);
+                    axios({
+                      method: "post",
+                      url: `${BASE_URL}/create-call/`,
+                      data: bodyFormData,
+                      headers: { "Content-Type": "multipart/form-data" },
+                    })
+                      .then(function (response) {
+                        console.log(response);
+                      })
+                      .catch(function (response) {
+                        console.log(response);
+                      });
+                  }}
+                >
+                  Request a doctor
+                </button>
+                <button onClick={goBack} style={{ color: "#ba8abb", marginTop: '25px' }}>Go Back</button>
 
-            {/* <a href="/login" style={{ color: "#ba8abb" }}>Go Back?</a> */}
-            </>
-            :
-            ""
+                {/* <a href="/login" style={{ color: "#ba8abb" }}>Go Back?</a> */}
+              </>
+              :
+              ""
             }
-            {location.state.setUser.is_doctor?
+            {state.loggedInUser.is_doctor ?
 
-            <button
-              className="w-full bg-gray-650 text-white px-2 py-3 rounded-xl mt-5"
-              onClick={(e) => {
-                setMeetingId(callMeetingId)
-                setIsJoinMeetingClicked(true);
-              }}
-            >
-              Join a meeting
-            </button>
-            :
-            ""
+              <button
+                className="w-full bg-gray-650 text-white px-2 py-3 rounded-xl"
+                onClick={(e) => {
+                  setMeetingId(callMeetingId)
+                  setIsJoinMeetingClicked(true);
+                }}
+              >
+                Join a meeting
+              </button>
+              :
+              ""
             }
           </div>
         </div>

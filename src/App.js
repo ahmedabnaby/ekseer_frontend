@@ -53,7 +53,7 @@ function App() {
           <BrowserRouter>
             <Header />
             <Routes>
-              <Route exact path="/" index element={<HomePage />} />
+              <Route exact path="/" name="HomePage" index element={<HomePage />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/register" element={<Register />} />
               <Route path="/register-as-doctor" element={<DoctorRegister />} />

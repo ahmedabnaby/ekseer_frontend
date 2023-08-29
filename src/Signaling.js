@@ -7,7 +7,7 @@ import { MeetingAppProvider } from "./MeetingAppContextDef";
 import { useNavigate, useLocation } from "react-router-dom";
 
 
-const Signaling = (callMeetingId) => {
+const Signaling = () => {
   const [token, setToken] = useState("");
   const [meetingId, setMeetingId] = useState("");
   const [participantName, setParticipantName] = useState("");
@@ -27,7 +27,7 @@ const Signaling = (callMeetingId) => {
     "only screen and (max-width: 768px)"
   ).matches;
   const nav = useNavigate();
-  const location = useLocation();
+  const { state } = useLocation();
 
   useEffect(() => {
     if (isMobile) {
@@ -82,57 +82,58 @@ const Signaling = (callMeetingId) => {
         </MeetingAppProvider>
       ) : isMeetingLeft ? (
         <>
-        {location.state.setUser.is_doctor?
-        nav("/doctor-homepage", {
-          state: {
-              setUser: location.state.setUser
+          {state.loggedInUser.is_doctor ?
+            nav("/doctor-homepage", {
+              state: {
+                logInToken: state.logInToken,
+                loggedInUser: state.loggedInUser
+              }
+            })
+            :
+            <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} />
           }
-      })
-        :
-        <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} />
-        }
         </>
       ) : (
-        callMeetingId.callMeetingId==undefined?
-        <JoiningScreen
-          participantName={participantName}
-          setParticipantName={setParticipantName}
-          setMeetingId={setMeetingId}
-          setToken={setToken}
-          setMicOn={setMicOn}
-          micEnabled={micOn}
-          webcamEnabled={webcamOn}
-          setSelectedMic={setSelectedMic}
-          setSelectedWebcam={setSelectedWebcam}
-          setWebcamOn={setWebcamOn}
-          onClickStartMeeting={() => {
-            setMeetingStarted(true);
-          }}
-          startMeeting={isMeetingStarted}
-          setIsMeetingLeft={setIsMeetingLeft}
-          meetingMode={meetingMode}
-          setMeetingMode={setMeetingMode}
-        />:
-        <JoiningScreen
-          participantName={participantName}
-          setParticipantName={setParticipantName}
-          setMeetingId={setMeetingId}
-          callMeetingId={callMeetingId.callMeetingId}
-          setToken={setToken}
-          setMicOn={setMicOn}
-          micEnabled={micOn}
-          webcamEnabled={webcamOn}
-          setSelectedMic={setSelectedMic}
-          setSelectedWebcam={setSelectedWebcam}
-          setWebcamOn={setWebcamOn}
-          onClickStartMeeting={() => {
-            setMeetingStarted(true);
-          }}
-          startMeeting={isMeetingStarted}
-          setIsMeetingLeft={setIsMeetingLeft}
-          meetingMode={meetingMode}
-          setMeetingMode={setMeetingMode}
-        />
+        state.meeting_id == undefined ?
+          <JoiningScreen
+            participantName={participantName}
+            setParticipantName={setParticipantName}
+            setMeetingId={setMeetingId}
+            setToken={setToken}
+            setMicOn={setMicOn}
+            micEnabled={micOn}
+            webcamEnabled={webcamOn}
+            setSelectedMic={setSelectedMic}
+            setSelectedWebcam={setSelectedWebcam}
+            setWebcamOn={setWebcamOn}
+            onClickStartMeeting={() => {
+              setMeetingStarted(true);
+            }}
+            startMeeting={isMeetingStarted}
+            setIsMeetingLeft={setIsMeetingLeft}
+            meetingMode={meetingMode}
+            setMeetingMode={setMeetingMode}
+          /> :
+          <JoiningScreen
+            participantName={participantName}
+            setParticipantName={setParticipantName}
+            setMeetingId={setMeetingId}
+            callMeetingId={state.meeting_id}
+            setToken={setToken}
+            setMicOn={setMicOn}
+            micEnabled={micOn}
+            webcamEnabled={webcamOn}
+            setSelectedMic={setSelectedMic}
+            setSelectedWebcam={setSelectedWebcam}
+            setWebcamOn={setWebcamOn}
+            onClickStartMeeting={() => {
+              setMeetingStarted(true);
+            }}
+            startMeeting={isMeetingStarted}
+            setIsMeetingLeft={setIsMeetingLeft}
+            meetingMode={meetingMode}
+            setMeetingMode={setMeetingMode}
+          />
       )}
     </>
   );

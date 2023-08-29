@@ -4,28 +4,12 @@ import Footer from '../Includes/Footer'
 
 
 function Questions() {
-    const location = useLocation();
+    const { state } = useLocation();
     const nav = useNavigate();
+
     const Popup = ({ handleClose }) => {
 
-        const navOut = () => {
-            if (location.state == null) {
-                nav("/", {
-                    state: {
-                        setUser: null
-                    }
-                });
-            }
-            else {
-                nav("/", {
-                    state: {
-                        setUser: location.state.setCurrectUser
-                    }
-                });
-            }
-            console.log(user)
 
-        }
         const modalRef = useRef(null);
 
         const closeWithAnimation = () => {
@@ -33,15 +17,12 @@ function Questions() {
                 modalRef.current.classList.add("closing");
                 modalRef.current.classList.remove("closing");
                 handleClose();
-                navOut()
             }
         }; return (
             <div ref={modalRef} className="graphpop">
                 <div className="content">
                     <div className="logo-img">
-                        <a href="/">
-                            <img src="img/icons/emergency-call.png" alt="" />
-                        </a>
+                        <img src="img/icons/emergency-call.png" alt="" />
                     </div>
                     <h2><a href="#tel:911" style={{ color: "#ba8abb" }}>Call 911</a> or go to nearest emergency hospital with these suggested <a href="#" style={{ color: "#ba8abb" }}>locations</a></h2>
                     <div className="cancel-btn">
@@ -51,15 +32,7 @@ function Questions() {
             </div>
         );
     };
-    var user = null;
-    if (location.state == null) {
-        user = null;
-    }
-    else {
-        user = location.state.setCurrectUser;
-        console.log(user)
 
-    }
     const [visible, setVisible] = useState(false);
 
     const showPopup = () => {
@@ -93,12 +66,6 @@ function Questions() {
         var hint = document.querySelector("#popupHint3")
         hint.style.display = "none"
     };
-    // const radioDisabled = () => {
-    //     var radioBtn = document.querySelector("#yes")
-    //     if(radioBtn.value === "YES"){
-    //         console.log("Selectedd")
-    //     }
-    // }
     const hideSuccessPopup = () => {
         var popUpSelector = document.querySelector("#d-none")
         popUpSelector.style.visibility = "hidden"
@@ -108,17 +75,16 @@ function Questions() {
         var popUpSelector = document.querySelector("#d-none")
         popUpSelector.style.visibility = "visible"
         setTimeout(() => {
-            // nav("/available-doctors")
-                nav("/signaling", {
-                    state: {
-                        setUser: location.state.setCurrectUser
-                    }
-                });
+            nav("/signaling", {
+                state: {
+                    logInToken: state.logInToken,
+                    loggedInUser: state.loggedInUser
+                }
+            });
         }, 2000)
-        console.log(popUpSelector)
     };
     return (
-        <div>
+        <>
             <div className="depertment_area">
                 <div className="container">
                     <div className="row custom_align align-items-end justify-content-between">
@@ -291,8 +257,8 @@ function Questions() {
                     </div>
                 </div>
             </div>
-            <Footer/>
-        </div>
+            <Footer />
+        </>
     );
 }
 
