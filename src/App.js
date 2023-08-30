@@ -17,6 +17,7 @@ import Signaling from './Signaling';
 import ForgetPassword from './Pages/ForgetPassword';
 import ForgetPasswordForm from './Pages/ForgetPasswordForm';
 import UpdateProfile from './Pages/UpdateProfile';
+import { TakeNotes } from './Pages/TakeNotes';
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -67,6 +68,7 @@ function App() {
               <Route path="/doctor-homepage" element={<DoctorHomepage />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/calls" element={<NewCalls />} />
+              <Route path="/take-notes" element={<TakeNotes />} />
               <Route path="/signaling" element={<Signaling />} />
             </Routes>
             {/* <Footer /> */}

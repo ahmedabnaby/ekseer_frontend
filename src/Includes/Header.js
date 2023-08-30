@@ -27,6 +27,20 @@ const Header = () => {
     }
     window.location.reload()
   }
+  const navigateDoctorHomePage = () => {
+    if (state != null) {
+      nav('/doctor-homepage', {
+        state: {
+          logInToken: state.logInToken,
+          loggedInUser: state.loggedInUser
+        }
+      });
+    }
+    else {
+      nav('/doctor-homepage');
+    }
+    window.location.reload()
+  }
   const navigateAboutUs = () => {
     if (state != null) {
       nav('/', {
@@ -55,13 +69,20 @@ const Header = () => {
     }
     window.location.reload()
   }
+  const navigateTakeNotes = () => {
+    let newWindow = window.open('/take-notes', "_blank");
+    newWindow["state"] = {
+      logInToken: state.logInToken,
+      loggedInUser: state.loggedInUser
+    }
+  }
   const navigateUpdateProfile = () => {
     nav(`/update-profile/${state.loggedInUser.id}`, {
-            state: {
-              logInToken: state.logInToken,
-              loggedInUser: state.loggedInUser
-            }
-          });
+      state: {
+        logInToken: state.logInToken,
+        loggedInUser: state.loggedInUser
+      }
+    });
     window.location.reload()
   }
   const logout = () => {
@@ -76,7 +97,6 @@ const Header = () => {
     nav('/login');
     window.location.reload()
   }
-
   return (
     <header>
       <div className="header-area ">
@@ -85,9 +105,15 @@ const Header = () => {
             <div className="row align-items-center">
               <div className="col-xl-3 col-lg-3">
                 <div className="logo-img">
-                  <div onClick={navigateHomePage}>
-                    <img src="/img/logo.png" alt="" />
-                  </div>
+                  {isLoggedIn && state.loggedInUser.is_doctor ?
+                    <div onClick={navigateDoctorHomePage}>
+                      <img src={process.env.PUBLIC_URL + '/img/logo.png'} alt="" />
+                    </div>
+                    :
+                    <div onClick={navigateHomePage}>
+                      <img src={process.env.PUBLIC_URL + '/img/logo.png'} alt="" />
+                    </div>
+                  }
                 </div>
               </div>
               <div className="col-xl-9 col-lg-9">
@@ -97,9 +123,9 @@ const Header = () => {
                       <nav>
                         <ul id="navigation">
                           <li>
-                            <div onClick={navigateHomePage}>
+                            <a href='/'>
                               home
-                            </div>
+                            </a>
                           </li>
                           <li>
                             <a href="about.html">About</a>
@@ -150,10 +176,17 @@ const Header = () => {
                 <div className="mobile_menu d-block d-lg-none">
                   {isLoggedIn ?
                     <Menu>
-                      <div id="home" className="menu-item" onClick={navigateHomePage}>
-                        <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
-                        Home
-                      </div>
+                      {state.loggedInUser.is_doctor ?
+                        <div id="home" className="menu-item" onClick={navigateDoctorHomePage}>
+                          <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                          Home
+                        </div>
+                        :
+                        <div id="home" className="menu-item" onClick={navigateHomePage}>
+                          <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                          Home
+                        </div>
+                      }
                       <div id="about" className="menu-item" onClick={navigateAboutUs}>
                         <img src='/img/icons/about.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
                         About us
@@ -166,6 +199,14 @@ const Header = () => {
                         <img src='/img/icons/profile-user.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
                         Update Profile
                       </div>
+                      {/* {state.loggedInUser.is_doctor ?
+                        <div id="take-notes" className="menu-item" onClick={navigateTakeNotes}>
+                          <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                          Take Notes
+                        </div>
+                        :
+                        ""
+                      } */}
                       <div id="logout" className="menu-item" onClick={logout}>
                         <img src='/img/icons/logout.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
                         Logout

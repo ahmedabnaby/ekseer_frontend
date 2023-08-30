@@ -45,7 +45,7 @@ const DoctorHomePage = () => {
                                     </div>
                                     <h3>Ready to receive calls?</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    <a href="/register" style={{ background: "#BA8ABB", border: '#BA8ABB' }} className="boxed-btn mt-4">Register now!</a>
+                                    <a href="/register-as-doctor" style={{ background: "#BA8ABB", border: '#BA8ABB' }} className="boxed-btn mt-4">Register now!</a>
                                     <h6 className='mt-5'>Have an account? <a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
                                 </div>
                             </div>

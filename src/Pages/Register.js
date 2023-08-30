@@ -8,12 +8,13 @@ function Register() {
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
 
     const [copyOfIqamaErrors, setcopyOfIqamaErrors] = useState([]);
+    const [birthDateError, setBirthDateError] = useState(false);
     const [emailErrors, setEmailErrors] = useState([]);
     const [iqamaNumberErrors, setIqamaNumberErrors] = useState([]);
     const [mobileNumberErrors, setMobileNumberErrors] = useState([]);
 
     const nav = useNavigate();
-    const {state} = useLocation();
+    const { state } = useLocation();
 
     const [visible, setVisible] = useState(false);
 
@@ -47,6 +48,17 @@ function Register() {
         );
     };
 
+    const datePickerValidate = (e) => {
+        console.log(e.target.value)
+        const currentYear = new Date().getFullYear();
+        const year = e.target.value.split("-")[0];
+        const age = currentYear - year;
+        if (age < 18) {
+            setBirthDateError(true)
+        }else{
+            setBirthDateError(false)
+        }
+    }
     const showPopup = () => {
         setVisible(true);
     };
@@ -127,12 +139,13 @@ function Register() {
                                         </div>
                                         <div className="col-xl-12">
                                             <label htmlFor="birth_date">Your Date of Birth</label>
-                                            <input type="date" name="birth_date" id="birth_date" className="example-custom-input" placeholder="YYYY-MM-DD" required />
+                                            {birthDateError && <p className="error">During Tele-consultations the legal guardian must accompany you!</p>}
+                                            <input type="date" name="birth_date" onChange={datePickerValidate} id="birth_date" className="example-custom-input" placeholder="YYYY-MM-DD" required />
                                         </div>
                                         <div className="col-xl-6">
-                                            <label htmlFor="mobile_number">Your Mobile Number</label>
+                                            <label htmlFor="mobile_number">Your Mobile Number (must be 9 digits long)</label>
                                             <p className="error">{mobileNumberErrors.length > 0 ? `${mobileNumberErrors}` : ""}</p>
-                                            <input type="number" id="mobile_number" name="mobile_number" placeholder="Mobile Number" required />
+                                            <input type="number" id="mobile_number" name="mobile_number" placeholder="Ex: 564234532" required />
                                         </div>
                                         <div className="col-xl-6">
                                             <label htmlFor="email">Your Email Address</label>
@@ -412,7 +425,7 @@ function Register() {
                                             <div className="row">
                                                 <div className="col-lg-12 col-md-12">
                                                     <p className="copy_right text-left">
-                                                        Already have an account? Login
+                                                        Already have an account? Login&nbsp;
                                                         <a href="/login" style={{ color: "#ba8abb" }}> here</a>
                                                     </p>
                                                 </div>
@@ -425,7 +438,7 @@ function Register() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }

@@ -9,11 +9,12 @@ function DoctorRegister() {
 
     const [copyOfIqamaErrors, setcopyOfIqamaErrors] = useState([]);
     const [emailErrors, setEmailErrors] = useState([]);
+    const [birthDateError, setBirthDateError] = useState(false);
     const [iqamaNumberErrors, setIqamaNumberErrors] = useState([]);
     const [mobileNumberErrors, setMobileNumberErrors] = useState([]);
 
     const nav = useNavigate();
-    const {state} = useLocation();
+    const { state } = useLocation();
 
 
     const [visible, setVisible] = useState(false);
@@ -55,6 +56,17 @@ function DoctorRegister() {
     const closePopup = () => {
         setVisible(false);
     };
+    const datePickerValidate = (e) => {
+        console.log(e.target.value)
+        const currentYear = new Date().getFullYear();
+        const year = e.target.value.split("-")[0];
+        const age = currentYear - year;
+        if (age < 18) {
+            setBirthDateError(true)
+        } else {
+            setBirthDateError(false)
+        }
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         var bodyFormData = new FormData();
@@ -146,13 +158,14 @@ function DoctorRegister() {
                                             <input type="email" name="email" id="email" placeholder="Email Address" required />
                                         </div>
                                         <div className="col-xl-6">
-                                            <label htmlFor="mobile_number">Your Mobile Number</label>
+                                            <label htmlFor="mobile_number">Your Mobile Number (must be 9 digits long)</label>
                                             <p className="error">{mobileNumberErrors.length > 0 ? `${mobileNumberErrors}` : ""}</p>
-                                            <input type="number" id="mobile_number" name="mobile_number" placeholder="Mobile Number" required />
+                                            <input type="number" id="mobile_number" name="mobile_number" placeholder="Ex: 564234532" required />
                                         </div>
                                         <div className="col-xl-12">
                                             <label htmlFor="birth_date">Your Date of Birth</label>
-                                            <input type="date" name="birth_date" id="birth_date" className="example-custom-input" placeholder="YYYY-MM-DD" required />
+                                            {birthDateError && <p className="error">During Tele-consultations the legal guardian must accompany you!</p>}
+                                            <input type="date" name="birth_date" onChange={datePickerValidate} id="birth_date" className="example-custom-input" placeholder="YYYY-MM-DD" required />
                                         </div>
                                         <div className="col-xl-12">
                                             <label htmlFor="default-select">Your Nationality</label>
@@ -449,7 +462,7 @@ function DoctorRegister() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }

@@ -24,8 +24,7 @@ export function MeetingDetailsScreen({
   const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
   
   const {state} = useLocation();
-  console.log(state)
-  participantName = "state.loggedInUser.full_name"
+  participantName = state.loggedInUser.full_name
   // console.log(callMeetingId)
   const goBack = () => {
     window.history.go(-1);

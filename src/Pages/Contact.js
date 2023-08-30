@@ -1,7 +1,12 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../Includes/Footer"
 
-function Contact() {
+const Contact = () => {
+    const { state } = useLocation();
+    const nav = useNavigate();
+
+    console.log(state)
     return (
         <div className="container">
             <div className="row">

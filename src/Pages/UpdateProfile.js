@@ -50,7 +50,7 @@ function UpdateProfile() {
             <div ref={modalRef} className="graphpop">
                 <div className="content">
                     <div className="logo-img">
-                        <img src={process.env.PUBLIC_URL + '/img/icons/double-check.gif'} alt="success" />
+                        <img src={process.env.PUBLIC_URL + '/img/icons/double-check.gif'} style={{ margin: "20px auto" }} alt="success" />
                     </div>
                     <h2><span style={{ color: "#ba8abb" }}>Profile</span> upated <span style={{ color: "#24ab94" }}>successfully!</span></h2>
                     <div className="cancel-btn">
@@ -67,6 +67,14 @@ function UpdateProfile() {
     const closePopup = () => {
         setVisible(false);
     };
+    const navToForgetPassword = () => {
+        nav('/forget-password', {
+            state: {
+                logInToken: state.logInToken,
+                loggedInUser: state.loggedInUser
+            }
+        });
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         var bodyFormData = new FormData();
@@ -110,9 +118,7 @@ function UpdateProfile() {
                                             <input type="email" name="email" id="email" placeholder="Email Address" defaultValue={state.loggedInUser.email} required />
                                         </div>
                                         <div className="col-lg-12 col-md-12">
-                                            <p className="copy_right text-left">
-                                                <a href="/forget-password" style={{ color: "#ba8abb" }}>Reset your password here.</a>
-                                            </p>
+                                            <div onClick={navToForgetPassword} style={{ color: "#ba8abb" }}>Reset your password here.</div>
                                         </div>
                                         <div className="col-xl-12 mt-4">
                                             {visible && <Popup handleClose={closePopup} />}

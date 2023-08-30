@@ -48,7 +48,7 @@ const HomePage = () => {
                                     <h3>Start Consultation</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
                                     <a href="/register" className="boxed-btn mt-4">Register now!</a>
-                                    <a href="/login" style={{ marginTop: "25px" }}>Already have an account? <br /><span style={{ color: "#ba8abb", marginTop: "15px" }}> Login here</span>.</a>
+                                    <a href="/login" style={{ marginTop: "25px", width:'100%' }}>Already have an account? <br /><span style={{ color: "#ba8abb", marginTop: "15px" }}> Login here</span>.</a>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,6 @@ const HomePage = () => {
                             <div className="col-lg-6">
                                 <h6 id='welcome-text'>Welcome {state.loggedInUser.full_name}!</h6>
                                 <div className="section_title mb-55 text-center">
-                                    <h6>Are you a doctor? <a href='/register-as-doctor' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
                                     <h3 className='mt-5'>Ekseer</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                                 </div>

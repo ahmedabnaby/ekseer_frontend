@@ -13,6 +13,8 @@ import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 import { useMeetingAppContext } from "../MeetingAppContextDef";
 import useMediaStream from "../hooks/useMediaStream";
+import { useLocation } from "react-router-dom";
+import { TakeNotes } from "../Pages/TakeNotes";
 
 export function MeetingContainer({
   onMeetingLeave,
@@ -29,6 +31,8 @@ export function MeetingContainer({
   const { useRaisedHandParticipants } = useMeetingAppContext();
   const { getVideoTrack } = useMediaStream();
 
+  const { state } = useLocation();
+  // console.log(state)
   const bottomBarHeight = 60;
 
   const [containerHeight, setContainerHeight] = useState(0);
@@ -36,6 +40,7 @@ export function MeetingContainer({
   const [localParticipantAllowedJoin, setLocalParticipantAllowedJoin] =
     useState(null);
   const [meetingErrorVisible, setMeetingErrorVisible] = useState(false);
+  const [visible, setVisibility] = useState(false);
   const [meetingError, setMeetingError] = useState(false);
 
   const mMeetingRef = useRef();
@@ -56,12 +61,12 @@ export function MeetingContainer({
   const sideBarContainerWidth = isXLDesktop
     ? 400
     : isLGDesktop
-    ? 360
-    : isTab
-    ? 320
-    : isMobile
-    ? 280
-    : 240;
+      ? 360
+      : isTab
+        ? 320
+        : isMobile
+          ? 280
+          : 240;
 
   useEffect(() => {
     containerRef.current?.offsetHeight &&
@@ -83,16 +88,24 @@ export function MeetingContainer({
     setIsMeetingLeft(true);
   };
 
+  const showTakeNotes = () => {
+    if (visible) {
+      setVisibility(false)
+    }
+    else {
+      setVisibility(true)
+    }
+  }
+
   const _handleOnRecordingStateChanged = ({ status }) => {
     if (
       status === Constants.recordingEvents.RECORDING_STARTED ||
       status === Constants.recordingEvents.RECORDING_STOPPED
     ) {
       toast(
-        `${
-          status === Constants.recordingEvents.RECORDING_STARTED
-            ? "Meeting recording is started"
-            : "Meeting recording is stopped."
+        `${status === Constants.recordingEvents.RECORDING_STARTED
+          ? "Meeting recording is started"
+          : "Meeting recording is stopped."
         }`,
         {
           position: "bottom-left",
@@ -265,6 +278,23 @@ export function MeetingContainer({
         {typeof localParticipantAllowedJoin === "boolean" ? (
           localParticipantAllowedJoin ? (
             <>
+              {state.loggedInUser.is_doctor ?
+                <>
+                  {visible ?
+                    <div id="take-notes" className="hide-btn" style={{ textAlign: 'center' }} onClick={showTakeNotes}>
+                      Back to meeting
+                    </div>
+                    :
+                    <div id="take-notes" className="notes-btn" style={{ textAlign: 'center' }} onClick={showTakeNotes}>
+                      <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                      Take Notes
+                    </div>
+                  }
+                  {visible && <TakeNotes patient_id={state.patient_id} loggedInUser={state.loggedInUser} />}
+                </>
+                :
+                ""
+              }
               <div className={` flex flex-1 flex-row bg-gray-800 `}>
                 <div className={`flex flex-1 `}>
                   {isPresenting ? (

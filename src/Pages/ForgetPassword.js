@@ -8,41 +8,29 @@ function ForgetPassword() {
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
 
     // const [errors, setErrors] = useState([]);
-    const [user, setUser] = useState(null);
     const nav = useNavigate();
-    const location = useLocation();
+    const { state } = useLocation();
+
+    console.log(state)
 
     const [visible, setVisible] = useState(false);
     const [errorVisible, setErrorVisible] = useState(false);
     const errorModalRef = useRef(null);
 
+    var isLoggedIn = false;
+
+    if (state != null) {
+        isLoggedIn = true
+    }
     const ErrorPopup = ({ handleClose }) => {
 
-        const navOut = () => {
-            if (location.state == null) {
-                nav("/forget-password", {
-                    state: {
-                        setUser: null
-                    }
-                });
-            }
-            else {
-                nav("/forget-password", {
-                    state: {
-                        setUser: location.state.setCurrectUser
-                    }
-                });
-            }
-            console.log(user)
-
-        }
 
         const closeWithAnimation = () => {
             if (errorModalRef.current) {
                 errorModalRef.current.classList.add("closing");
                 errorModalRef.current.classList.remove("closing");
                 handleClose();
-                navOut()
+                nav("/forget-password")
             }
         }; return (
             <div ref={errorModalRef} className="graphpop">
@@ -75,24 +63,6 @@ function ForgetPassword() {
 
     const Popup = ({ handleClose }) => {
 
-        const navOut = () => {
-            if (location.state == null) {
-                nav("/login", {
-                    state: {
-                        setUser: null
-                    }
-                });
-            }
-            else {
-                nav("/login", {
-                    state: {
-                        setUser: location.state.setCurrectUser
-                    }
-                });
-            }
-            console.log(user)
-
-        }
         const modalRef = useRef(null);
 
         const closeWithAnimation = () => {
@@ -100,7 +70,7 @@ function ForgetPassword() {
                 modalRef.current.classList.add("closing");
                 modalRef.current.classList.remove("closing");
                 handleClose();
-                navOut()
+                nav("/forget-password")
             }
         }; return (
             <div ref={modalRef} className="graphpop">
@@ -158,10 +128,16 @@ function ForgetPassword() {
                                 </h3>
                                 <form onSubmit={handleSubmit}>
                                     <div className="row">
-                                        <div className="col-xl-6">
-                                            <label htmlFor="email">E-mail</label>
-                                            <input type="email" name="email" id="email" placeholder="Enter Your Email" required />
-                                        </div>
+                                        {isLoggedIn ?
+                                            <div className="col-xl-6">
+                                                <label htmlFor="email">E-mail</label>
+                                                <input type="email" name="email" id="email" defaultValue={state.loggedInUser.email} placeholder="Enter Your Email" required />
+                                            </div> :
+                                            <div className="col-xl-6">
+                                                <label htmlFor="email">E-mail</label>
+                                                <input type="email" name="email" id="email" placeholder="Enter Your Email" required />
+                                            </div>
+                                        }
                                         <div className="col-xl-12">
                                             <button type="submit" className="boxed-btn mt-4" style={{ width: "100%" }}>Reset Password</button>
                                         </div>
@@ -183,7 +159,7 @@ function ForgetPassword() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }

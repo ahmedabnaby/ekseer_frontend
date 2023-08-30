@@ -17,12 +17,18 @@ function Questions() {
                 modalRef.current.classList.add("closing");
                 modalRef.current.classList.remove("closing");
                 handleClose();
+                nav('/', {
+                    state: {
+                        logInToken: state.logInToken,
+                        loggedInUser: state.loggedInUser
+                    }
+                });
             }
         }; return (
             <div ref={modalRef} className="graphpop">
                 <div className="content">
                     <div className="logo-img">
-                        <img src="img/icons/emergency-call.png" alt="" />
+                        <img src="img/icons/emergency-call.png" style={{margin:'30px auto'}} alt="" />
                     </div>
                     <h2><a href="#tel:911" style={{ color: "#ba8abb" }}>Call 911</a> or go to nearest emergency hospital with these suggested <a href="#" style={{ color: "#ba8abb" }}>locations</a></h2>
                     <div className="cancel-btn">
