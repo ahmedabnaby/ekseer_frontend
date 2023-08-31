@@ -18,6 +18,9 @@ import ForgetPassword from './Pages/ForgetPassword';
 import ForgetPasswordForm from './Pages/ForgetPasswordForm';
 import UpdateProfile from './Pages/UpdateProfile';
 import { TakeNotes } from './Pages/TakeNotes';
+import { UpdateConsultation } from './Pages/UpdateConsultation';
+import { DoctorConsultation } from './Pages/DoctorConsultation.js';
+import { PatientConsultation } from './Pages/PatientConsultation';
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -66,9 +69,12 @@ function App() {
               <Route path="/contact-us" element={<Contact />} />
               <Route path="/available-doctors" element={<DoctorsList />} />
               <Route path="/doctor-homepage" element={<DoctorHomepage />} />
+              <Route path="/doctor-consultation" element={<DoctorConsultation />} />
+              <Route path="/patient-consultation" element={<PatientConsultation />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/calls" element={<NewCalls />} />
               <Route path="/take-notes" element={<TakeNotes />} />
+              <Route path="/update-consultation/:id" element={<UpdateConsultation />} />
               <Route path="/signaling" element={<Signaling />} />
             </Routes>
             {/* <Footer /> */}

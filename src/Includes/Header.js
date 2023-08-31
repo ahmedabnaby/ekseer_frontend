@@ -69,12 +69,23 @@ const Header = () => {
     }
     window.location.reload()
   }
-  const navigateTakeNotes = () => {
-    let newWindow = window.open('/take-notes', "_blank");
-    newWindow["state"] = {
-      logInToken: state.logInToken,
-      loggedInUser: state.loggedInUser
-    }
+  const navigateViewDoctorConsultation = () => {
+    nav('/doctor-consultation', {
+      state: {
+        logInToken: state.logInToken,
+        loggedInUser: state.loggedInUser
+      }
+    });
+    window.location.reload()
+  }
+  const navigateViewPatientrConsultation = () => {
+    nav('/patient-consultation', {
+      state: {
+        logInToken: state.logInToken,
+        loggedInUser: state.loggedInUser
+      }
+    });
+    window.location.reload()
   }
   const navigateUpdateProfile = () => {
     nav(`/update-profile/${state.loggedInUser.id}`, {
@@ -177,15 +188,30 @@ const Header = () => {
                   {isLoggedIn ?
                     <Menu>
                       {state.loggedInUser.is_doctor ?
-                        <div id="home" className="menu-item" onClick={navigateDoctorHomePage}>
-                          <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
-                          Home
-                        </div>
-                        :
-                        <div id="home" className="menu-item" onClick={navigateHomePage}>
-                          <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
-                          Home
-                        </div>
+                        (
+                          <div>
+                            <div id="home" className="menu-item" onClick={navigateDoctorHomePage}>
+                              <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                              Home
+                            </div>
+                            <div id="view-consultation" className="menu-item" onClick={navigateViewDoctorConsultation} style={{ marginTop: '13px' }}>
+                              <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                              View consultations
+                            </div>
+                          </div>
+                        )
+                        : (
+                          <div>
+                            <div id="home" className="menu-item" onClick={navigateHomePage}>
+                              <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                              Home
+                            </div>
+                            <div id="view-consultation" className="menu-item" onClick={navigateViewPatientrConsultation} style={{ marginTop: '13px' }}>
+                              <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                              View consultations
+                            </div>
+                          </div>
+                        )
                       }
                       <div id="about" className="menu-item" onClick={navigateAboutUs}>
                         <img src='/img/icons/about.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />

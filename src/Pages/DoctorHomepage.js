@@ -74,7 +74,6 @@ const DoctorHomePage = () => {
                                     <h3>Ready to receive calls?</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
                                     <div className="boxed-btn mt-4" style={{ background: "#BA8ABB", border: '#BA8ABB' }} onClick={navigateWithData}>Start accepting calls!</div>
-                                    <h6 className='mt-5'>Have an account? <a href='/login' style={{ color: "#ba8abb" }}> Login here!</a></h6>
                                 </div>
                             </div>
                         </div>

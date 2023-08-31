@@ -12,12 +12,11 @@ export const NewCalls = () => {
         bottom: "0",
         right: "0",
         left: "0",
-        margin:"0px auto"
+        margin: "0px auto"
     };
 
     const nav = useNavigate();
 
-    const [meetingId, setMeetingId] = useState("");
 
     // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
@@ -25,34 +24,31 @@ export const NewCalls = () => {
     const [calls, setCalls] = useState([]);
     const [patients, setPatients] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [isShown, setIsShown] = useState(false);
+    const [newCalls, setNewCalls] = useState(false);
 
     const fetchNewCalls = async () => {
-        await axios.get(`${BASE_URL}/calls/`).then((response) => {
-            setDataLoaded(true);
-            setCalls(response.data);
-            showToastMessage("Call retrieved successfully!");
-        })
+        await axios.get(`${BASE_URL}/calls/`)
+            .then((response) => {
+                setDataLoaded(true);
+                setCalls(response.data);
+                var i = 0;
+                while (i < response.data.length) {
+                    if ((response.data[i].is_new === false)) {
+                        setNewCalls(false);
+                    }
+                    else {
+                        setNewCalls(true);
+                    }
+                    i++
+                }
+            })
     }
     const fetchPatients = async () => {
         await axios.get(`${BASE_URL}/users/`).then((response) => {
+            setDataLoaded(true);
             setPatients(response.data);
         })
     }
-    const showToastMessage = (message) => {
-        setShowToast(true);
-        setToastMessage(message);
-        setTimeout(() => {
-            hideToastMessage();
-        }, 3000); // Hide the toast after 3 seconds
-    };
-
-    const hideToastMessage = () => {
-        setShowToast(false);
-        setToastMessage("");
-    };
     const handleOnCLick = async (id, meeting_id) => {
         var bodyFormData = new FormData();
         var doctor_id = state.loggedInUser.id
@@ -98,8 +94,12 @@ export const NewCalls = () => {
                             {dataLoaded ? (
                                 <div className="comments-area">
                                     <h4>Calls</h4>
-                                    <button type="button" className="boxed-btn" onClick={fetchCallsAndPatients} style={{ width: "100%", marginBottom: '25px' }}>Retrieve calls!</button>
-
+                                    {!newCalls ?
+                                        <h5>No upcoming calls yet!</h5>
+                                        :
+                                        ""
+                                    }
+                                    {/* <button type="button" className="boxed-btn" onClick={fetchCallsAndPatients} style={{ width: "100%", marginBottom: '25px' }}>Retrieve calls!</button> */}
                                     {calls?.map((call) => (
                                         <div key={call.id}>
                                             {call.is_new ?
@@ -123,10 +123,8 @@ export const NewCalls = () => {
                                                                 </h5>
                                                             </div>
                                                         </div>
-                                                        {/* {console.log("HEY", call.meeting_id)} */}
                                                         <div className="reply-btn">
                                                             <div className="btn-reply text-uppercase" onClick={() => handleOnCLick(call.id, call.meeting_id)}>Accept Call</div>
-                                                            {/* {isShown && <Signaling callMeetingId={call.meeting_id} />} */}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,7 +134,7 @@ export const NewCalls = () => {
                                         </div>
                                     ))}
                                 </div>
-                            ) : (
+                            ) :
                                 <PuffLoader
                                     color={"#24ab94"}
                                     cssOverride={override}
@@ -144,8 +142,7 @@ export const NewCalls = () => {
                                     aria-label="Loading Spinner"
                                     data-testid="loader"
                                 />
-                            )}
-                            {showToast && <div id="toast">{toastMessage}</div>}
+                            }
                         </div>
                     </div>
                 </div>

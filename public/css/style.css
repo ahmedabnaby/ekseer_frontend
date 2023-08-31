@@ -2357,7 +2357,13 @@ h3 {
   position: relative;
   z-index: 0;
 }
-
+.customContentPopUp{
+  position: relative;
+  top: 400px;
+}
+.card{
+  margin: 0px 15px;
+}
 /* line 9, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_footer.scss */
 .footer .footer_top {
   padding-top: 130px;
@@ -2706,11 +2712,11 @@ input[type='radio'] {
 /* line 4, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_bradcam.scss */
 .breadcam_bg_1 {
   /* Old browsers */
-  background: -moz-linear-gradient(left, #24ab95b4 0%, #24ab95b4 100%), url(../img/banner/emergency_1.jpg);
+  background: -moz-linear-gradient(left, #24ab9536 0%, #24ab9536 100%), url(../img/banner/bradcam2.png);
   /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #24ab95b4 0%, #24ab95b4 100%), url(../img/banner/emergency_1.jpg);
+  background: -webkit-linear-gradient(left, #24ab9536 0%, #24ab9536 100%), url(../img/banner/bradcam2.png);
   /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #24ab95b4 0%, #24ab95b4 100%), url(../img/banner/emergency_1.jpg);
+  background: linear-gradient(to right, #24ab9536 0%, #24ab9536 100%), url(../img/banner/bradcam2.png);
 }
 
 /* line 7, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_bradcam.scss */
@@ -2731,6 +2737,7 @@ input[type='radio'] {
   /* line 10, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_bradcam.scss */
   .bradcam_area {
     padding: 150px 0 120px 0;
+    margin-top: 65px;
   }
 }
 
@@ -7214,6 +7221,7 @@ a{
   top: 15px;
   right: 15px;
   width: 24px;
+  z-index: 9999;
 }
 
 .graphpop .content img {
