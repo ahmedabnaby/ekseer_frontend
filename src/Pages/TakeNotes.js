@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -141,18 +141,23 @@ export const TakeNotes = ({
                     <form onSubmit={handleSubmit}>
                         <div className="row">
                             <div className="col-xl-12">
+                                <label>Chief Complaint:</label>
                                 <textarea name='chief_complaint' placeholder="Chief Complaint ..." required></textarea>
                             </div>
                             <div className="col-xl-12">
+                                <label>History of Presenting Illness:</label>
                                 <textarea name='history_of_illness' placeholder="History of Presenting Illness ..." required></textarea>
                             </div>
                             <div className="col-xl-12">
+                                <label>Review of Systems:</label>
                                 <textarea name='review_of_systems' placeholder="Review of Systems ..." required></textarea>
                             </div>
                             <div className="col-xl-12">
+                                <label>Examination:</label>
                                 <textarea name='examination' placeholder="Examination ..." required></textarea>
                             </div>
                             <div className="col-xl-12">
+                                <label>Assessment/Plan:</label>
                                 <textarea name='assessment' placeholder="Assessment/Plan ..." required></textarea>
                             </div>
                             <div className="col-xl-12">

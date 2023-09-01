@@ -152,18 +152,23 @@ export const UpdateConsultation = ({
                         <form onSubmit={handleSubmit}>
                             <div className="row">
                                 <div className="col-xl-12">
+                                    <label>Chief Complaint:</label>
                                     <textarea name='chief_complaint' defaultValue={consultation.chief_complaint} placeholder="Chief Complaint ..." required></textarea>
                                 </div>
                                 <div className="col-xl-12">
+                                    <label>History of Illness:</label>
                                     <textarea name='history_of_illness' defaultValue={consultation.history_of_illness} placeholder="History of Presenting Illness ..." required></textarea>
                                 </div>
                                 <div className="col-xl-12">
+                                    <label>Review of systems:</label>
                                     <textarea name='review_of_systems' defaultValue={consultation.review_of_systems} placeholder="Review of Systems ..." required></textarea>
                                 </div>
                                 <div className="col-xl-12">
+                                    <label>Examinations:</label>
                                     <textarea name='examination' defaultValue={consultation.examination} placeholder="Examination ..." required></textarea>
                                 </div>
                                 <div className="col-xl-12">
+                                    <label>Assessments/Plans:</label>
                                     <textarea name='assessment' defaultValue={consultation.assessment} placeholder="Assessment/Plan ..." required></textarea>
                                 </div>
                                 <div className="col-xl-12 text-left">
