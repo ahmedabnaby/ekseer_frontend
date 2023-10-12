@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import Footer from "../Includes/Footer"
 
-const Login = () => {
+const DoctorLogin = () => {
     // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
     const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
 
@@ -101,7 +101,7 @@ const Login = () => {
                         <div className="popup_box ">
                             <div className="popup_inner">
                                 <h3>
-                                    Login
+                                    Login as a doctor
                                     <span>Here!</span>
                                 </h3>
                                 <form onSubmit={handleSubmit}>
@@ -122,7 +122,7 @@ const Login = () => {
                                             <div className="row">
                                                 <div className="col-lg-6 col-md-6">
                                                     <p className="copy_right text-left">
-                                                        <a href="/register" style={{ width: '100' }}>New user? <span style={{ color: "#ba8abb", marginTop: "15px" }}> Register here</span>.</a>
+                                                        <a href="/register-as-doctor" style={{ width: '100' }}>New user? <span style={{ color: "#ba8abb", marginTop: "15px" }}> Register here</span>.</a>
                                                     </p>
                                                 </div>
                                                 <div className="col-lg-6 col-md-6">
@@ -144,4 +144,4 @@ const Login = () => {
         </div>
     );
 }
-export default Login;
+export default DoctorLogin;

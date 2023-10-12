@@ -4,9 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Header = () => {
   const { state } = useLocation();
   const nav = useNavigate();
-
-  const [logInToken, setLoginToken] = useState(null)
-  const [loggedInUser, setLoggedInUser] = useState(null)
   var isLoggedIn = false;
 
   if (state != null) {
@@ -108,6 +105,10 @@ const Header = () => {
     nav('/login');
     window.location.reload()
   }
+  const doctorLogin = () => {
+    nav('/doctor-login');
+    window.location.reload()
+  }
   return (
     <header>
       <div className="header-area ">
@@ -132,54 +133,128 @@ const Header = () => {
                   <div className="menu_wrap_inner d-flex align-items-center justify-content-end">
                     <div className="main-menu">
                       <nav>
-                        <ul id="navigation">
-                          <li>
-                            <a href='/'>
-                              home
-                            </a>
-                          </li>
-                          <li>
-                            <a href="about.html">About</a>
-                          </li>
-                          <li>
-                            <a href="#">
-                              blog <i className="ti-angle-down"></i>
-                            </a>
-                            <ul className="submenu">
-                              <li>
-                                <a href="blog.html">blog</a>
-                              </li>
-                              <li>
-                                <a href="single-blog.html">single-blog</a>
-                              </li>
-                            </ul>
-                          </li>
-                          <li>
-                            <a href="#">
-                              pages <i className="ti-angle-down"></i>
-                            </a>
-                            <ul className="submenu">
-                              <li>
-                                <a href="department.html">Department</a>
-                              </li>
-                              <li>
-                                <a href="more.html">More</a>
-                              </li>
-                            </ul>
-                          </li>
-                          <li>
-                            <a href="/contact-us">Contact</a>
-                          </li>
-                        </ul>
+                        {isLoggedIn && state.loggedInUser.is_doctor ?
+                          <ul id="navigation">
+                            <li>
+                              <div id="home" className="menu-item" onClick={navigateDoctorHomePage}>
+                                <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                                Home
+                              </div>
+                            </li>
+                            <li>
+                              <div id="about" className="menu-item" onClick={navigateDoctorHomePage}>
+                                <img src='/img/icons/about.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                                About us
+                              </div>
+                            </li>
+                            <li>
+                              <div id="contact" className="menu-item" onClick={navigateContactUs}>
+                                <img src='/img/icons/contact-us.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px' }} />
+                                Contact us
+                              </div>
+                            </li>
+                            <li>
+                              <div id="view-consultation" className="menu-item" onClick={navigateViewDoctorConsultation} style={{ marginTop: '13px' }}>
+                                <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                                View consultations
+                              </div>
+                            </li>
+                            <li>
+                              <div id="update-profile" className="menu-item" onClick={navigateUpdateProfile}>
+                                <img src='/img/icons/profile-user.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                                Update Profile
+                              </div>
+                            </li>
+                            <li>
+                              <div id="logout" className="menu-item" onClick={logout}>
+                                <img src='/img/icons/logout.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                                Logout
+                              </div>
+                            </li>
+                          </ul>
+                          :
+                          isLoggedIn?
+                          <ul id="navigation">
+                            <li>
+                              <div id="home" className="menu-item" onClick={navigateHomePage}>
+                                <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                                Home
+                              </div>
+                            </li>
+                            <li>
+                              <div id="about" className="menu-item" onClick={navigateAboutUs}>
+                                <img src='/img/icons/about.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                                About us
+                              </div>
+                            </li>
+                            <li>
+                              <div id="contact" className="menu-item" onClick={navigateContactUs}>
+                                <img src='/img/icons/contact-us.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px' }} />
+                                Contact us
+                              </div>
+                            </li>
+                            <li>
+                              <div id="view-consultation" className="menu-item" onClick={navigateViewPatientrConsultation} style={{ marginTop: '13px' }}>
+                                <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                                View consultations
+                              </div>
+                            </li>
+                            <li>
+                              <div id="update-profile" className="menu-item" onClick={navigateUpdateProfile}>
+                                <img src='/img/icons/profile-user.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                                Update Profile
+                              </div>
+                            </li>
+                            <li>
+                              <div id="logout" className="menu-item" onClick={logout}>
+                                <img src='/img/icons/logout.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                                Logout
+                              </div>
+                            </li>
+                          </ul>
+                          :
+                          <ul id="navigation">
+                            <li>
+                              <div id="home" className="menu-item" onClick={navigateHomePage}>
+                                <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                                Home
+                              </div>
+                            </li>
+                            <li>
+                              <div id="login" className="menu-item" onClick={login}>
+                                <img src='/img/icons/login.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                                Register/Login
+                              </div>
+                            </li>
+                            <li>
+                              <div id="about" className="menu-item" onClick={navigateAboutUs}>
+                                <img src='/img/icons/about.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                                About us
+                              </div>
+                            </li>
+                            <li>
+                              <div id="contact" className="menu-item" onClick={navigateContactUs}>
+                                <img src='/img/icons/contact-us.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px' }} />
+                                Contact us
+                              </div>
+                            </li>
+                            <li>
+                              <div id="home" className="menu-item" onClick={doctorLogin}>
+                                <img src='/img/icons/doctor.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                                For doctors
+                              </div>
+                            </li>
+                          </ul>
+                        }
                       </nav>
                     </div>
-                    <div className="book_room">
+                    {/* <div className="book_room">
                       <div className="book_btn">
                         <a className="popup-with-form" href="#test-form">
                           Book Appointment
                         </a>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -225,14 +300,6 @@ const Header = () => {
                         <img src='/img/icons/profile-user.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
                         Update Profile
                       </div>
-                      {/* {state.loggedInUser.is_doctor ?
-                        <div id="take-notes" className="menu-item" onClick={navigateTakeNotes}>
-                          <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
-                          Take Notes
-                        </div>
-                        :
-                        ""
-                      } */}
                       <div id="logout" className="menu-item" onClick={logout}>
                         <img src='/img/icons/logout.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
                         Logout
@@ -244,6 +311,10 @@ const Header = () => {
                         <img src='/img/icons/home.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
                         Home
                       </div>
+                      <div id="login" className="menu-item" onClick={login}>
+                        <img src='/img/icons/login.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                        Register/Login
+                      </div>
                       <div id="about" className="menu-item" onClick={navigateAboutUs}>
                         <img src='/img/icons/about.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
                         About us
@@ -252,9 +323,9 @@ const Header = () => {
                         <img src='/img/icons/contact-us.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px' }} />
                         Contact us
                       </div>
-                      <div id="login" className="menu-item" onClick={login}>
-                        <img src='/img/icons/login.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
-                        Login
+                      <div id="home" className="menu-item" onClick={doctorLogin}>
+                        <img src='/img/icons/doctor.png' style={{ display: 'inline-block', position: 'relative', top: '-2px', marginRight: '5px' }} />
+                        For doctors
                       </div>
                     </Menu>
                   }

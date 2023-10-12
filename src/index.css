@@ -9,7 +9,12 @@
   width: 4px;
 }
 .inset-mt{
-  margin-top:65px !important;
+  margin-top:76px !important;
+}
+@media screen and (max-width:786px) {
+  .inset-mt{
+    margin-top: 72px !important;
+  }
 }
 ::-webkit-scrollbar-track {
   background: "transparent";

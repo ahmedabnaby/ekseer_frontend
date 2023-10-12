@@ -21,6 +21,7 @@ import { TakeNotes } from './Pages/TakeNotes';
 import { UpdateConsultation } from './Pages/UpdateConsultation';
 import { DoctorConsultation } from './Pages/DoctorConsultation.js';
 import { PatientConsultation } from './Pages/PatientConsultation';
+import DoctorLogin from './Pages/DoctorLogin';
 
 function App() {
   const [loading, setLoading] = useState(false)
@@ -39,7 +40,7 @@ function App() {
     }, 0)
   }, [])
   return (
-    <div>
+    <>
       {
         loading ?
           <div className='app'>
@@ -62,9 +63,10 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/register-as-doctor" element={<DoctorRegister />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/doctor-login" element={<DoctorLogin />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
-              <Route path="/update-profile/:id" element={<UpdateProfile />}/>
-              <Route path="/forget-password-form/:token" element={<ForgetPasswordForm/>} />
+              <Route path="/update-profile/:id" element={<UpdateProfile />} />
+              <Route path="/forget-password-form/:token" element={<ForgetPasswordForm />} />
               <Route path="/questions" element={<Questions />} />
               <Route path="/contact-us" element={<Contact />} />
               <Route path="/available-doctors" element={<DoctorsList />} />
@@ -80,21 +82,7 @@ function App() {
             {/* <Footer /> */}
           </BrowserRouter>
       }
-
-
-      {/* <BrowserRouter basename="/ekseer-v2/">
-        <Header />
-        <Routes>
-            <Route exact path="/" index element={<HomePage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/questions" element={<Questions />} />
-            <Route path="/logout" element={<Logout />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter> */}
-    </div>
+    </>
 
 
   );

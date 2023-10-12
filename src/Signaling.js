@@ -51,7 +51,7 @@ const Signaling = () => {
               meetingId,
               micEnabled: micOn,
               webcamEnabled: webcamOn,
-              name: participantName ? participantName : "TestUser",
+              name: state.loggedInUser.full_name,
               mode: meetingMode,
               multiStream: true,
             }}
@@ -81,18 +81,7 @@ const Signaling = () => {
           </MeetingProvider>
         </MeetingAppProvider>
       ) : isMeetingLeft ? (
-        <>
-          {state.loggedInUser.is_doctor ?
-            nav("/doctor-homepage", {
-              state: {
-                logInToken: state.logInToken,
-                loggedInUser: state.loggedInUser
-              }
-            })
-            :
             <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} />
-          }
-        </>
       ) : (
         state.meeting_id == undefined ?
           <JoiningScreen

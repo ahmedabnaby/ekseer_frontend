@@ -33,8 +33,8 @@ const HomePage = () => {
                         <div className="row justify-content-center ">
                             <div className="col-lg-6">
                                 <div className="section_title mb-55 text-center">
-                                    <h6>Are you a doctor? <a href='/doctor-homepage' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6>
-                                    <h3 className='mt-5'>Ekseer</h3>
+                                    {/* <h6>Are you a doctor? <a href='/doctor-homepage' style={{ color: "#ba8abb" }}> Join as a doctor!</a></h6> */}
+                                    <h3 className='mt-2'>Ekseer</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                                 </div>
                             </div>
@@ -45,10 +45,9 @@ const HomePage = () => {
                                     <div className="icon">
                                         <i className="flaticon-doctor"></i>
                                     </div>
-                                    <h3>Start Consultation</h3>
+                                    <a href="/login" className="boxed-btn mt-4 mb-4" style={{display:'block'}}>Start Consultation!</a>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                                    <a href="/register" className="boxed-btn mt-4">Register now!</a>
-                                    <a href="/login" style={{ marginTop: "25px", width:'100%' }}>Already have an account? <br /><span style={{ color: "#ba8abb", marginTop: "15px" }}> Login here</span>.</a>
+                                    {/* <a href="/login" style={{ marginTop: "25px", width:'100%' }}>Already have an account? <br /><span style={{ color: "#ba8abb", marginTop: "15px" }}> Login here</span>.</a> */}
                                 </div>
                             </div>
                         </div>

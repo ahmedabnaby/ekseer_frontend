@@ -8,7 +8,7 @@ class Footer extends React.Component {
       <footer className="footer">
         <div className="footer_top">
           <div className="container">
-            <div className="row">
+            <div className="row justify-content-center">
               <div className="col-xl-4 col-md-6 col-lg-4 ">
                 <div className="footer_widget">
                   <div className="footer_logo">
@@ -71,7 +71,7 @@ class Footer extends React.Component {
               </div> */}
             </div>
             <div className="row justify-content-center">
-              <a href="/contact-us" className="boxed-btn">Contact us</a>
+              <a href="/contact-us" className="boxed-btn contact-us-btn">Contact us</a>
             </div>
           </div>
         </div>

@@ -28,6 +28,7 @@ import { Dialog, Popover, Transition } from "@headlessui/react";
 import { createPopper } from "@popperjs/core";
 import { useMeetingAppContext } from "../../MeetingAppContextDef";
 import useMediaStream from "../../hooks/useMediaStream";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function PipBTN({ isMobile, isTab }) {
   const { pipMode, setPipMode } = useMeetingAppContext();
@@ -157,6 +158,8 @@ export function BottomBar({
   setSelectMicDeviceId,
 }) {
   const { sideBarMode, setSideBarMode } = useMeetingAppContext();
+  const { state } = useLocation();
+
   const RaiseHandBTN = ({ isMobile, isTab }) => {
     const { publish } = usePubSub("RAISE_HAND");
     const RaiseHand = () => {
@@ -218,26 +221,31 @@ export function BottomBar({
         startRecording();
       }
     };
-
     return (
-      <OutlinedButton
-        Icon={RecordingIcon}
-        onClick={_handleClick}
-        isFocused={isRecording}
-        tooltip={
-          recordingState === Constants.recordingEvents.RECORDING_STARTED
-            ? "Stop Recording"
-            : recordingState === Constants.recordingEvents.RECORDING_STARTING
-            ? "Starting Recording"
-            : recordingState === Constants.recordingEvents.RECORDING_STOPPED
-            ? "Start Recording"
-            : recordingState === Constants.recordingEvents.RECORDING_STOPPING
-            ? "Stopping Recording"
-            : "Start Recording"
+      <>
+        {state.loggedInUser.is_doctor ?
+          <OutlinedButton
+            Icon={RecordingIcon}
+            onClick={_handleClick}
+            isFocused={isRecording}
+            tooltip={
+              recordingState === Constants.recordingEvents.RECORDING_STARTED
+                ? "Stop Recording"
+                : recordingState === Constants.recordingEvents.RECORDING_STARTING
+                  ? "Starting Recording"
+                  : recordingState === Constants.recordingEvents.RECORDING_STOPPED
+                    ? "Start Recording"
+                    : recordingState === Constants.recordingEvents.RECORDING_STOPPING
+                      ? "Stopping Recording"
+                      : "Start Recording"
+            }
+            lottieOption={isRecording ? defaultOptions : null}
+            isRequestProcessing={isRequestProcessing}
+          />
+          :
+          ""
         }
-        lottieOption={isRecording ? defaultOptions : null}
-        isRequestProcessing={isRequestProcessing}
-      />
+      </>
     );
   };
 
@@ -292,7 +300,7 @@ export function BottomBar({
                           onMouseLeave={closeTooltip}
                         >
                           <button
-                          className="b-none b-transparent"
+                            className="b-none b-transparent"
                             onClick={(e) => {
                               getMics(mMeeting.getMics);
                             }}
@@ -327,16 +335,14 @@ export function BottomBar({
                                 <div className="flex flex-col">
                                   {mics.map(({ deviceId, label }, index) => (
                                     <div
-                                      className={`px-3 py-1 my-1 pl-6 text-white text-left ${
-                                        deviceId === selectMicDeviceId &&
+                                      className={`px-3 py-1 my-1 pl-6 text-white text-left ${deviceId === selectMicDeviceId &&
                                         "bg-gray-150"
-                                      }`}
+                                        }`}
                                     >
                                       <button
-                                        className={`flex flex-1 w-full ${
-                                          deviceId === selectMicDeviceId &&
+                                        className={`flex flex-1 w-full ${deviceId === selectMicDeviceId &&
                                           "bg-gray-150"
-                                        }`}
+                                          }`}
                                         key={`mics_${deviceId}`}
                                         onClick={() => {
                                           setSelectMicDeviceId(deviceId);
@@ -359,9 +365,8 @@ export function BottomBar({
                 </Popover>
                 <div
                   style={{ zIndex: 999 }}
-                  className={`${
-                    tooltipShow ? "" : "hidden"
-                  } overflow-hidden flex flex-col items-center justify-center pb-4`}
+                  className={`${tooltipShow ? "" : "hidden"
+                    } overflow-hidden flex flex-col items-center justify-center pb-4`}
                   ref={tooltipRef}
                 >
                   <div className={"rounded-md p-1.5 bg-black "}>
@@ -447,7 +452,7 @@ export function BottomBar({
                           onMouseLeave={closeTooltip}
                         >
                           <button
-                           className="b-none b-transparent"
+                            className="b-none b-transparent"
                             onClick={(e) => {
                               getWebcams(mMeeting?.getWebcams);
                             }}
@@ -482,16 +487,14 @@ export function BottomBar({
                                 <div className="flex flex-col">
                                   {webcams.map(({ deviceId, label }, index) => (
                                     <div
-                                      className={`px-3 py-1 my-1 pl-6 text-white text-left ${
-                                        deviceId === selectWebcamDeviceId &&
+                                      className={`px-3 py-1 my-1 pl-6 text-white text-left ${deviceId === selectWebcamDeviceId &&
                                         "bg-gray-150"
-                                      }`}
+                                        }`}
                                     >
                                       <button
-                                        className={`flex flex-1 w-full ${
-                                          deviceId === selectWebcamDeviceId &&
+                                        className={`flex flex-1 w-full ${deviceId === selectWebcamDeviceId &&
                                           "bg-gray-150"
-                                        }`}
+                                          }`}
                                         key={`output_webcams_${deviceId}`}
                                         onClick={async () => {
                                           setSelectWebcamDeviceId(deviceId);
@@ -524,9 +527,8 @@ export function BottomBar({
                 </Popover>
                 <div
                   style={{ zIndex: 999 }}
-                  className={`${
-                    tooltipShow ? "" : "hidden"
-                  } overflow-hidden flex flex-col items-center justify-center pb-4`}
+                  className={`${tooltipShow ? "" : "hidden"
+                    } overflow-hidden flex flex-col items-center justify-center pb-4`}
                   ref={tooltipRef}
                 >
                   <div className={"rounded-md p-1.5 bg-black "}>
@@ -572,8 +574,8 @@ export function BottomBar({
               ? false
               : true
             : isMobile
-            ? true
-            : false
+              ? true
+              : false
         }
       />
     ) : (
@@ -781,11 +783,10 @@ export function BottomBar({
                       {otherFeatures.map(({ icon }) => {
                         return (
                           <div
-                            className={`grid items-center justify-center ${
-                              icon === BottomBarButtonTypes.MEETING_ID_COPY
+                            className={`grid items-center justify-center ${icon === BottomBarButtonTypes.MEETING_ID_COPY
                                 ? "col-span-7 sm:col-span-5 md:col-span-3"
                                 : "col-span-4 sm:col-span-3 md:col-span-2"
-                            }`}
+                              }`}
                           >
                             {icon === BottomBarButtonTypes.RAISE_HAND ? (
                               <RaiseHandBTN isMobile={isMobile} isTab={isTab} />

@@ -114,7 +114,7 @@ function DoctorRegister() {
     return (
         <div className="book_apointment_area">
             <div className="container">
-                <div className="row justify-content-end">
+                <div className="row justify-content-center">
                     <div className="col-lg-7">
                         <div className="popup_box ">
                             <div className="popup_inner">
@@ -135,7 +135,7 @@ function DoctorRegister() {
                                         </div>
                                         <div className="col-xl-6">
                                             <label htmlFor="iqama_number">ID/Iqama Number</label>
-                                            <p className="error">{iqamaNumberErrors.length > 0 ? `${iqamaNumberErrors}` : ""}</p>
+                                            {iqamaNumberErrors.length > 0 ? <p className="error">This ID/Iqama number already exists!</p> : ''}
                                             <input type="text" name="iqama_number" id="iqama_number" placeholder="Identification or Iqama number" required />
                                         </div>
                                         <div className="col-xl-6">
@@ -154,17 +154,19 @@ function DoctorRegister() {
                                         </div>
                                         <div className="col-xl-6">
                                             <label htmlFor="email">Your Email Address</label>
-                                            <p className="error">{emailErrors.length > 0 ? `${emailErrors}` : ""}</p>
+                                            {emailErrors.length > 0 ? <p className="error">This E-mail address already exists!</p> : ''}
                                             <input type="email" name="email" id="email" placeholder="Email Address" required />
                                         </div>
                                         <div className="col-xl-6">
                                             <label htmlFor="mobile_number">Your Mobile Number (must be 9 digits long)</label>
-                                            <p className="error">{mobileNumberErrors.length > 0 ? `${mobileNumberErrors}` : ""}</p>
+                                            {mobileNumberErrors.length > 0 ? <p className="error">The mobile number should start with '5'!</p> : ''}
                                             <input type="number" id="mobile_number" name="mobile_number" placeholder="Ex: 564234532" required />
                                         </div>
                                         <div className="col-xl-12">
                                             <label htmlFor="birth_date">Your Date of Birth</label>
-                                            {birthDateError && <p className="error">During Tele-consultations the legal guardian must accompany you!</p>}
+                                            {/* {birthDateError && <p className="error">Your Date of Birth indicates that you are below 18 years,
+                                                According to the Ministry of Health bylaws, your legal guardian must accompany you During the Tele-consultation!
+                                            </p>} */}
                                             <input type="date" name="birth_date" onChange={datePickerValidate} id="birth_date" className="example-custom-input" placeholder="YYYY-MM-DD" required />
                                         </div>
                                         <div className="col-xl-12">
@@ -438,7 +440,7 @@ function DoctorRegister() {
                                                     <input type="checkbox" id="primary-checkbox" required />
                                                     <label htmlFor="primary-checkbox" />
                                                 </div>
-                                                <p>By signing up you agree to our
+                                                <p>By signing up you agree to our&nbsp;
                                                     <a href="#" style={{ color: "#ba8abb" }}> Terms & Conditions</a>
                                                 </p>
                                             </div>
@@ -450,7 +452,7 @@ function DoctorRegister() {
                                                 <div className="col-lg-12 col-md-12">
                                                     <p className="copy_right text-left">
                                                         Already have an account? Login&nbsp;
-                                                        <a href="/login" style={{ color: "#ba8abb" }}> here</a>
+                                                        <a href="/doctor-login" style={{ color: "#ba8abb" }}> here</a>
                                                     </p>
                                                 </div>
                                             </div>

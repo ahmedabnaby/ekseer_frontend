@@ -17,7 +17,7 @@ function Questions() {
                 modalRef.current.classList.add("closing");
                 modalRef.current.classList.remove("closing");
                 handleClose();
-                nav('/', {
+                nav('/questions', {
                     state: {
                         logInToken: state.logInToken,
                         loggedInUser: state.loggedInUser
@@ -28,9 +28,9 @@ function Questions() {
             <div ref={modalRef} className="graphpop">
                 <div className="content">
                     <div className="logo-img">
-                        <img src="img/icons/emergency-call.png" style={{margin:'30px auto'}} alt="" />
+                        <img src="img/icons/emergency-call.png" style={{ margin: '30px auto' }} alt="" />
                     </div>
-                    <h2><a href="#tel:911" style={{ color: "#ba8abb" }}>Call 911</a> or go to nearest emergency hospital with these suggested <a href="#" style={{ color: "#ba8abb" }}>locations</a></h2>
+                    <h2>We apologize, currently, we cannot serve you, <a href="#tel:911" style={{ color: "#ba8abb" }}> Please call 911</a> or go to nearest hospital emergency.</h2>
                     <div className="cancel-btn">
                         <img src="img/icons/cancel.png" id="cancel-here" onClick={closeWithAnimation} />
                     </div>
@@ -93,14 +93,18 @@ function Questions() {
         <>
             <div className="depertment_area">
                 <div className="container">
-                    <div className="row custom_align align-items-end justify-content-between">
-                        <div className="col-lg-6">
+                    <div className="row custom_align justify-content-center">
+                        {/* <div className="col-lg-6">
                             <div className="section_title">
                                 <h3 className="purple_c">Before you start the call with our specialists</h3>
                                 <h6 className="purple_c mb-4">You need to answer a few questions in order to escalate your condition.</h6>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="col-lg-6 mt-4">
+                            <div className="section_title">
+                                <h3 className="purple_c">Before you start the call with our specialists</h3>
+                                <h6 className="purple_c mb-4">You need to answer a few questions in order to escalate your condition.</h6>
+                            </div>
                             <form onSubmit={handleSubmit}>
                                 <p>1) Are you less than 14 years old?</p>
                                 &nbsp; <input type="radio" id="yes" name="yesOrNo1" defaultValue="YES" onChange={showPopup} />
@@ -109,7 +113,7 @@ function Questions() {
                                 &nbsp; <input type="radio" id="no" name="yesOrNo1" defaultValue="NO" required />
                                 &nbsp; <label htmlFor="no">No</label><br />
                                 <br />
-                                <p>2) Are you physically in Riyadh City?</p>
+                                <p>2) Are you physically outside of Riyadh City?</p>
                                 &nbsp; <input type="radio" id="yes" name="yesOrNo2" defaultValue="YES" onChange={showPopup} />
                                 {visible && <Popup handleClose={closePopup} />}
                                 &nbsp; <label htmlFor="yes">Yes</label><br />

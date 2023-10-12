@@ -248,11 +248,25 @@ export function MeetingContainer({
 
       const isLocal = senderId === localParticipantId;
 
+      // const hideBtn = () => {
+      //   var newMessage = document.getElementById('newMessage')
+      //       newMessage.style.visibility = "hidden" 
+      // }
       if (!isLocal) {
         new Audio(
           `https://static.videosdk.live/prebuilt/notification.mp3`
         ).play();
+        var newMessage = document.getElementById('newMessage')
+        newMessage.style.visibility = "visible" 
+        newMessage.innerHTML = `
+        <span id = "clsBtn" onclick="
+        var newMessage = document.getElementById('newMessage')
+            newMessage.style.visibility = 'hidden'
+            ">x</span>
+        ${nameTructed(senderName, 15)} says: ${message}
+        `
 
+          // <p>{senderName} says: ${message}</p>
         toast(
           `${trimSnackBarText(
             `${nameTructed(senderName, 15)} says: ${message}`
@@ -272,6 +286,74 @@ export function MeetingContainer({
     },
   });
 
+  const Ref = useRef(null);
+
+  // The state for our timer
+  const [timer, setTimer] = useState('00:00:00');
+
+  const getTimeRemaining = (e) => {
+    const total = Date.parse(e) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / 1000 / 60 / 60) % 24);
+    return {
+      total, hours, minutes, seconds
+    };
+  }
+
+  const startTimer = (e) => {
+    let { total, hours, minutes, seconds }
+      = getTimeRemaining(e);
+    if (total >= 0) {
+
+      // update the timer
+      // check if less than 10 then we need to
+      // add '0' at the beginning of the variable
+      setTimer(
+        (hours > 9 ? hours : '0' + hours) + ':' +
+        (minutes > 9 ? minutes : '0' + minutes) + ':'
+        + (seconds > 9 ? seconds : '0' + seconds)
+      )
+    }
+  }
+
+  const clearTimer = (e) => {
+
+    // If you adjust it you should also need to
+    // adjust the Endtime formula we are about
+    // to code next   
+    setTimer('00:00:900');
+
+    // If you try to remove this line the
+    // updating of timer Variable will be
+    // after 1000ms or 1sec
+    if (Ref.current) clearInterval(Ref.current);
+    const id = setInterval(() => {
+      startTimer(e);
+    }, 1000)
+    Ref.current = id;
+  }
+
+  const getDeadTime = () => {
+    let deadline = new Date();
+
+    // This is where you need to adjust if
+    // you entend to add more time
+    deadline.setSeconds(deadline.getSeconds() + 900);
+    return deadline;
+  }
+
+  // We can use useEffect so that when the component
+  // mount the timer will start as soon as possible
+
+  // We put empty array to act as componentDid
+  // mount only
+  // useEffect(() => {
+  //   clearTimer(getDeadTime());
+  // }, []);
+
+
+
   return (
     <div className="fixed inset-0 inset-mt">
       <div ref={containerRef} className="h-full flex flex-col bg-gray-800">
@@ -280,20 +362,24 @@ export function MeetingContainer({
             <>
               {state.loggedInUser.is_doctor ?
                 <>
+                <div className="row">
                   {visible ?
-                    <div id="take-notes" className="hide-btn" style={{ textAlign: 'center' }} onClick={showTakeNotes}>
+                    <div id="take-notes" className="hide-btn" style={{ textAlign: 'center', width:'50%' }} onClick={showTakeNotes}>
                       Back to meeting
                     </div>
                     :
-                    <div id="take-notes" className="notes-btn" style={{ textAlign: 'center' }} onClick={showTakeNotes}>
+                    <div id="take-notes" className="notes-btn" style={{ textAlign: 'center', width:'50%' }} onClick={showTakeNotes}>
                       <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
                       Take Notes
                     </div>
                   }
+                  {/* <div className="myTimer">{timer}</div> */}
+                  </div>
                   {visible && <TakeNotes patient_id={state.patient_id} loggedInUser={state.loggedInUser} />}
                 </>
                 :
                 ""
+                // <div className="myTimer text-center" style={{width:'100%'}}>{timer}</div>
               }
               <div className={` flex flex-1 flex-row bg-gray-800 `}>
                 <div className={`flex flex-1 `}>
@@ -319,6 +405,8 @@ export function MeetingContainer({
                 selectMicDeviceId={selectMicDeviceId}
                 setSelectMicDeviceId={setSelectMicDeviceId}
               />
+              <div id="newMessage">
+              </div>
             </>
           ) : (
             <></>

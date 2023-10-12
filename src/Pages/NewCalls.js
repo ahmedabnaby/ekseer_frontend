@@ -79,10 +79,25 @@ export const NewCalls = () => {
         fetchNewCalls()
         fetchPatients()
     }
+    const getAge = (dateString) => {
+        var today = new Date();
+        var createdAt = new Date(dateString);
+        // console.log(today.getMinutes())
+        // console.log(createdAt.getMinutes())
+        // var age = today.getSeconds() - secondsNow.getSeconds();
+        // var m = today.getMinutes() - secondsNow.getMinutes();
+        // if (m < 0 || (m === 0 && today.getDate() < secondsNow.getDate())) {
+        //     age--;
+        // }
+        var currentMinutes = today.getMinutes() - createdAt.getMinutes()
+        // console.log(currentMinutes)
+        return currentMinutes
+        // return age;
+    }
     useEffect(() => {
         const interval = setInterval(() => {
             fetchCallsAndPatients();
-        }, 5000)
+        }, 2000)
         return () => clearInterval(interval)
     }, []);
     return (
@@ -106,20 +121,20 @@ export const NewCalls = () => {
                                                 <div className="comment-list">
                                                     <div className="single-comment justify-content-between align-items-center d-flex">
                                                         <div className="desc justify-content-between align-items-center d-flex">
-
-                                                            <div className="thumb">
-                                                                <img src="img/comment/comment_1.png" alt="" />
-                                                            </div>
                                                             <div className="desc">
                                                                 <h5>
-                                                                    <a href="#">
+                                                                    <span>
                                                                         {patients.map((patient) => (
                                                                             call.patient_id == patient.id ?
                                                                                 patient.full_name
                                                                                 :
                                                                                 ""
                                                                         ))}
-                                                                    </a>
+                                                                    </span>
+                                                                    <br/>
+                                                                    <span>
+                                                                        {getAge(call.created_at) >= 0 ? getAge(call.created_at) + " minute(s) ago" : ""}
+                                                                    </span>
                                                                 </h5>
                                                             </div>
                                                         </div>

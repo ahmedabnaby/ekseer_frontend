@@ -48,7 +48,7 @@ function ParticipantGrid({ participantIds, isPresenting }) {
           : "md:px-0"
       }`}
     >
-      <div className="flex flex-col w-full h-full mt-5">
+      <div className="flex flex-col w-full h-full">
         {Array.from(
           { length: Math.ceil(participantIds.length / perRow) },
           (_, i) => {

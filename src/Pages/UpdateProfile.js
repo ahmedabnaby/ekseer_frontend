@@ -56,6 +56,9 @@ function UpdateProfile() {
                     <div className="cancel-btn">
                         <img src={process.env.PUBLIC_URL + "/img/icons/cancel.png"} id="cancel-here" alt="cancel" onClick={closeWithAnimation} />
                     </div>
+                    <div style={{display:'none'}}>{setTimeout(() => {
+                        closeWithAnimation()
+                    }, 2000)}</div>
                 </div>
             </div>
         );

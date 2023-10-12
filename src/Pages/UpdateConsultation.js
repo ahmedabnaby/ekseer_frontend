@@ -46,6 +46,9 @@ export const UpdateConsultation = ({
                     <div className="cancel-btn">
                         <img src="img/icons/cancel.png" id="cancel-here" onClick={closeWithAnimation} />
                     </div>
+                    <div style={{display:'none'}}>{setTimeout(() => {
+                        closeWithAnimation()
+                    }, 2000)}</div>
                 </div>
             </div>
         );

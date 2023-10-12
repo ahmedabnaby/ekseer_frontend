@@ -257,7 +257,7 @@ const ShowSelectedConsultation = ({ consultation, handleClose }) => {
                                                 <h5>Sick leave:</h5>
                                                 <p>{consultation.sick_leave}</p>
                                             </div>
-                                            <button onClick={showUpdateConsultation} className="boxed-btn">Update Consultation</button>
+                                            <button onClick={showUpdateConsultation} className="boxed-btn">Modify Consultation</button>
                                         </div>
                                     </div>
                                     {visibleUpdateConsultations && <UpdateConsultation consultation={consultation} id={consultation.id} patient_id={consultation.patient_id} loggedInUser={state.loggedInUser} />}

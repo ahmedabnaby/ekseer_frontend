@@ -17,7 +17,7 @@ export const TakeNotes = ({
     const [sickLeave, setSickLeave] = useState(false)
 
     const [visible, setVisible] = useState(false);
-
+    
     const Popup = ({ handleClose }) => {
         const modalRef = useRef(null);
 
@@ -39,6 +39,9 @@ export const TakeNotes = ({
                     <div className="cancel-btn">
                         <img src="img/icons/cancel.png" id="cancel-here" onClick={closeWithAnimation} />
                     </div>
+                    <div style={{display:'none'}}>{setTimeout(() => {
+                        closeWithAnimation()
+                    }, 2000)}</div>
                 </div>
             </div>
         );
