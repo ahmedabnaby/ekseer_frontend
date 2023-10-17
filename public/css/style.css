@@ -4461,6 +4461,7 @@ h6 {
 /* line 365, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_elements.scss */
 .progress-table .country {
   width: 70%;
+  text-align: left;
 }
 
 /* line 368, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_elements.scss */
@@ -6702,7 +6703,7 @@ h6 {
 .comments-area .btn-reply {
   background-color: transparent;
   color: #888888;
-  padding: 5px 18px;
+  padding: 5px 0px;
   font-size: 14px;
   display: block;
   font-weight: 400;
@@ -7700,4 +7701,25 @@ a.buttons:not(:last-child):nth-last-child(4) {
 }
 #boxed-btn-small{
   margin-top: 25px !important;
+}
+.showIcon{
+  position: relative;
+  width: 60%;
+  left: 15px;
+  display: inline !important;
+  width: 40% !important;
+  top: 4px;
+}
+.showIcon span{
+  font-size: 10px !important;
+  position: relative;
+  top: -10px;
+  color: #26a994;
+}
+.showIcon img{
+  position: relative;
+}
+.visit span{
+  font-size: 12px !important;
+  margin-right: 10px;
 }

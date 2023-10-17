@@ -3,6 +3,29 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export function LeaveScreen({ setIsMeetingLeft }) {
   const { state } = useLocation();
+  const nav = useNavigate();
+
+  const navigateHomePage = () => {
+    setIsMeetingLeft(false);
+    if(state.loggedInUser.is_doctor)
+    {
+    nav('/doctor-homepage', {
+        state: {
+            logInToken: state.logInToken,
+            loggedInUser: state.loggedInUser
+        }
+    });
+  }
+  else{
+    nav('/', {
+      state: {
+          logInToken: state.logInToken,
+          loggedInUser: state.loggedInUser
+      }
+  });
+  }
+
+}
 
   return (
     <div className="inset-mt bg-gray-800 h-screen flex flex-col flex-1 items-center justify-center">
@@ -304,11 +327,12 @@ export function LeaveScreen({ setIsMeetingLeft }) {
         </div>
       </div>
       <div className="mt-12">
+        {console.log(state)}
         <button
           className="`w-full text-white px-16 py-3 rounded-lg text-sm"
           style={{backgroundColor:'#28a694'}}
           onClick={() => {
-            setIsMeetingLeft(false);
+            navigateHomePage()
           }}
         >
           Go Back!

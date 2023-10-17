@@ -87,14 +87,24 @@ export const PatientConsultation = () => {
                                 <div key={filteredConsultation.id}>
                                     {
                                         <>
-                                            <div className="table-row" onClick={()=>showConsultation(filteredConsultation)}>
+                                            <div className="table-row" onClick={() => showConsultation(filteredConsultation)}>
                                                 <div className="serial">
                                                     <span style={{ color: "#953E92" }}>{index + 1}</span>
                                                 </div>
                                                 {doctors?.filter(doctor => filteredConsultation.doctor_id == doctor.id).map((filteredDoctor) => (
-                                                    <div className="country" key={filteredDoctor.id}>{filteredDoctor.full_name}</div>
+                                                    <div className="country" key={filteredDoctor.id}>
+                                                        <span style={{ color: "#26a994", marginTop: "5px" }}>
+                                                            {filteredDoctor.full_name}
+                                                            <br />
+                                                            <span style={{ color: '#993f95', fontSize: "11px", position: 'relative', top: '-8px' }}>
+                                                                {filteredConsultation.chief_complaint}
+                                                            </span>
+                                                        </span>
+                                                    </div>
                                                 ))}
-                                                <div className="visit">{formatDate(filteredConsultation.created_at)}</div>
+                                                <div className="visit">
+                                                    <span>{formatDate(filteredConsultation.created_at)}</span>
+                                                </div>
                                             </div>
                                             {console.log(filteredConsultation)}
                                         </>

@@ -81,6 +81,16 @@ export const NewCalls = () => {
     }
     const getAge = (dateString) => {
         var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+    const getDateAndTime = (dateString) => {
+        var today = new Date();
         var createdAt = new Date(dateString);
         // console.log(today.getMinutes())
         // console.log(createdAt.getMinutes())
@@ -126,14 +136,18 @@ export const NewCalls = () => {
                                                                     <span>
                                                                         {patients.map((patient) => (
                                                                             call.patient_id == patient.id ?
-                                                                                patient.full_name
+                                                                                <>
+                                                                                    <span style={{fontSize:'16px', color:'#993f95'}}>{patient.full_name}</span>
+                                                                                    <br/>
+                                                                                    <span style={{fontSize:'12px', color:'#26a994'}}>Age: {getAge(patient.date_of_birth)}</span>
+                                                                                </>
                                                                                 :
                                                                                 ""
                                                                         ))}
                                                                     </span>
-                                                                    <br/>
-                                                                    <span>
-                                                                        {getAge(call.created_at) >= 0 ? getAge(call.created_at) + " minute(s) ago" : ""}
+                                                                    <br />
+                                                                    <span style={{position:'relative', top:'5px'}}>
+                                                                        {getDateAndTime(call.created_at) >= 0 ? getDateAndTime(call.created_at) + " minute(s) ago" : "More than a hour ago"}
                                                                     </span>
                                                                 </h5>
                                                             </div>
