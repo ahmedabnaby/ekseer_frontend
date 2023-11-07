@@ -6642,7 +6642,7 @@ h6 {
 
 /* line 1341, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_blog.scss */
 .comments-area .comment-list {
-  padding-bottom: 48px;
+  margin-bottom: 48px !important;
 }
 
 /* line 1344, ../../Arafath/CL/january 2020/241. Medical/HTML/scss/_blog.scss */
@@ -7720,6 +7720,10 @@ a.buttons:not(:last-child):nth-last-child(4) {
   position: relative;
 }
 .visit span{
-  font-size: 12px !important;
+  font-size: 10px !important;
   margin-right: 10px;
+}
+#takeNotesPopup{
+  position: relative;
+  top: 28rem;
 }

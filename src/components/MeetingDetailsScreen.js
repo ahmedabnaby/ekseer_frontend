@@ -132,6 +132,8 @@ export function MeetingDetailsScreen({
                       headers: { "Content-Type": "multipart/form-data" },
                     })
                       .then(function (response) {
+                        localStorage.setItem('call_id', response.data.id);
+                        localStorage.setItem('patientTime', new Date().getMinutes());
                         console.log(response);
                       })
                       .catch(function (response) {

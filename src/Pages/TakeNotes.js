@@ -4,7 +4,9 @@ import axios from 'axios';
 
 export const TakeNotes = ({
     loggedInUser,
-    patient_id
+    patient_id,
+    handleClose,
+    call_id
 }) => {
 
     console.log(loggedInUser, patient_id)
@@ -12,12 +14,19 @@ export const TakeNotes = ({
 
     // console.log(data)
     const [patients, setPatients] = useState([])
-    const [consultations, setConsultations] = useState([])
+    const [consultation, setConsultation] = useState([])
     const [medication, setMedication] = useState(false)
     const [sickLeave, setSickLeave] = useState(false)
+    const modalRef = useRef(null);
 
     const [visible, setVisible] = useState(false);
-    
+    const closeNotesAnimation = () => {
+        if (modalRef.current) {
+            modalRef.current.classList.add("closing");
+            modalRef.current.classList.remove("closing");
+            handleClose();
+        }
+    };
     const Popup = ({ handleClose }) => {
         const modalRef = useRef(null);
 
@@ -39,9 +48,11 @@ export const TakeNotes = ({
                     <div className="cancel-btn">
                         <img src="img/icons/cancel.png" id="cancel-here" onClick={closeWithAnimation} />
                     </div>
-                    <div style={{display:'none'}}>{setTimeout(() => {
+                    <div style={{ display: 'none' }}>{setTimeout(() => {
                         closeWithAnimation()
-                    }, 2000)}</div>
+                        closeNotesAnimation()
+                    }, 2000)}
+                    </div>
                 </div>
             </div>
         );
@@ -94,6 +105,7 @@ export const TakeNotes = ({
         bodyFormData.append("review_of_systems", e.target.review_of_systems.value);
         bodyFormData.append("examination", e.target.examination.value);
         bodyFormData.append("assessment", e.target.assessment.value);
+        bodyFormData.append("call_id", call_id);
         if (e.target.medication == undefined) {
             bodyFormData.append("medication", "No");
         }
@@ -114,6 +126,7 @@ export const TakeNotes = ({
         })
             .then(function (response) {
                 showPopup()
+                localStorage.setItem('consultation', response.data.id)
             })
             .catch(function (response) {
                 console.log(response);
@@ -123,88 +136,94 @@ export const TakeNotes = ({
         fetchPatients();
     }, [])
     return (
-        <div className="container" style={{ overflowY: 'scroll' }}>
-            <div className="row">
-                <div className="col-xl-8 col-md-6 col-lg-4 popup_box" style={{ marginTop: '0px' }} id='footer_contact_form'>
-                    <h3 style={{ color: '#24ab94' }}>
-                        You are writing consultation to:
-                        <span style={{ color: "#953E92", fontSize: '18px' }}>
-                            {patients.map((patient) => (
-                                patient_id == patient.id ?
-                                    <div key={patient.id}>
-                                        Patient name: {patient.full_name}
-                                        <br />
-                                        Age: {getAge(patient.date_of_birth)}
-                                    </div>
-                                    :
-                                    ""
-                            ))}
-                        </span>
-                    </h3>
-                    <form onSubmit={handleSubmit}>
-                        <div className="row">
-                            <div className="col-xl-12">
-                                <label>Chief Complaint:</label>
-                                <textarea name='chief_complaint' placeholder="Chief Complaint ..." required></textarea>
-                            </div>
-                            <div className="col-xl-12">
-                                <label>History of Presenting Illness:</label>
-                                <textarea name='history_of_illness' placeholder="History of Presenting Illness ..." required></textarea>
-                            </div>
-                            <div className="col-xl-12">
-                                <label>Review of Systems:</label>
-                                <textarea name='review_of_systems' placeholder="Review of Systems ..." required></textarea>
-                            </div>
-                            <div className="col-xl-12">
-                                <label>Examination:</label>
-                                <textarea name='examination' placeholder="Examination ..." required></textarea>
-                            </div>
-                            <div className="col-xl-12">
-                                <label>Assessment/Plan:</label>
-                                <textarea name='assessment' placeholder="Assessment/Plan ..." required></textarea>
-                            </div>
-                            <div className="col-xl-12">
-                                <label htmlFor='medic'>Prescribe Medication</label>
-                                <div className='container row'>
-                                    &nbsp; <input className='radioReset' type="radio" id="yes" name="yesOrNo" defaultValue="YES" onChange={medic} />
-                                    &nbsp; <label htmlFor="yes">Yes</label>
-                                    &nbsp;&nbsp;&nbsp; <input className='radioReset' type="radio" id="no" name="yesOrNo" defaultValue="NO" onChange={medic} required />
-                                    &nbsp;&nbsp; <label htmlFor="no">No</label>
-                                </div>
-                                {medication &&
-                                    <>
-                                        <div className="col-xl-12">
-                                            <textarea id='medic' name='medication' placeholder="Write the full prescription medications ..." required></textarea>
-                                            <div className='container row'>
-                                                <h5 style={{ marginBottom: '10px' }}>We can help you order medics from here, choose your OS and download
-                                                    <span style={{ color: "#24ab94" }}> Anat App </span>now!</h5>
-                                                <a href='https://play.google.com/store/apps/details?id=com.lean.practitioner' target='_blank'>
-                                                    <img src={process.env.PUBLIC_URL + '/img/icons/google-play.png'} style={{ width: '45px' }} />
-                                                </a>
-                                                <a href='https://apps.apple.com/sa/app/anat-%D8%A3%D9%86%D8%A7%D8%A9/id1472911277' target='_blank'>
-                                                    <img src={process.env.PUBLIC_URL + '/img/icons/app-store.png'} style={{ width: '35px', position: 'relative', top: '5px', left: '25px' }} />
-                                                </a>
-                                            </div>
+        <div ref={modalRef} className="graphpop" style={{ overflowY: 'scroll' }} >
+
+            <div className="content container" id='takeNotesPopup'>
+                <div className="row">
+                    <div className="col-xl-8 col-md-6 col-lg-4 popup_box" style={{ marginTop: '0px' }} id='footer_contact_form'>
+                        <h3 style={{ color: '#24ab94' }}>
+                            You are writing consultation to:
+                            <span style={{ color: "#953E92", fontSize: '18px' }}>
+                                {patients.map((patient) => (
+                                    patient_id == patient.id ?
+                                        <div key={patient.id}>
+                                            Patient name: {patient.full_name}
+                                            <br />
+                                            Age: {getAge(patient.date_of_birth)}
                                         </div>
-                                    </>
-                                }
-                            </div>
-                            <div className="col-xl-12 mt-3">
-                                <label htmlFor='sick'>Prescribe Sick-leave</label>
-                                <div className='container row'>
-                                    &nbsp; <input className='radioReset' type="radio" id="yes1" name="yesOrNo1" defaultValue="YES" onChange={sick} />
-                                    &nbsp; <label htmlFor="yes1">Yes</label>
-                                    &nbsp;&nbsp;&nbsp; <input className='radioReset' type="radio" id="no1" name="yesOrNo1" defaultValue="NO" onChange={sick} required />
-                                    &nbsp;&nbsp; <label htmlFor="no1">No</label>
+                                        :
+                                        ""
+                                ))}
+                            </span>
+                        </h3>
+                        <form onSubmit={handleSubmit}>
+                            <div className="row">
+                                <div className="col-xl-12">
+                                    <label>Chief Complaint:</label>
+                                    <textarea name='chief_complaint' placeholder="Chief Complaint ..." required></textarea>
                                 </div>
-                                {sickLeave && <input id='sick' name='sick_leave' type='number' placeholder="How many days?" required />}
+                                <div className="col-xl-12">
+                                    <label>History of Presenting Illness:</label>
+                                    <textarea name='history_of_illness' placeholder="History of Presenting Illness ..." required></textarea>
+                                </div>
+                                <div className="col-xl-12">
+                                    <label>Review of Systems:</label>
+                                    <textarea name='review_of_systems' placeholder="Review of Systems ..." required></textarea>
+                                </div>
+                                <div className="col-xl-12">
+                                    <label>Examination:</label>
+                                    <textarea name='examination' placeholder="Examination ..." required></textarea>
+                                </div>
+                                <div className="col-xl-12">
+                                    <label>Assessment/Plan:</label>
+                                    <textarea name='assessment' placeholder="Assessment/Plan ..." required></textarea>
+                                </div>
+                                <div className="col-xl-12">
+                                    <label htmlFor='medic'>Prescribe Medication</label>
+                                    <div className='container row'>
+                                        &nbsp; <input className='radioReset' type="radio" id="yes" name="yesOrNo" defaultValue="YES" onChange={medic} />
+                                        &nbsp; <label htmlFor="yes">Yes</label>
+                                        &nbsp;&nbsp;&nbsp; <input className='radioReset' type="radio" id="no" name="yesOrNo" defaultValue="NO" onChange={medic} required />
+                                        &nbsp;&nbsp; <label htmlFor="no">No</label>
+                                    </div>
+                                    {medication &&
+                                        <>
+                                            <div className="col-xl-12">
+                                                <textarea id='medic' name='medication' placeholder="Write the full prescription medications ..." required></textarea>
+                                                <div className='container row'>
+                                                    <h5 style={{ marginBottom: '10px' }}>We can help you order medics from here, choose your OS and download
+                                                        <span style={{ color: "#24ab94" }}> Anat App </span>now!</h5>
+                                                    <a href='https://play.google.com/store/apps/details?id=com.lean.practitioner' target='_blank'>
+                                                        <img src={process.env.PUBLIC_URL + '/img/icons/google-play.png'} style={{ width: '45px' }} />
+                                                    </a>
+                                                    <a href='https://apps.apple.com/sa/app/anat-%D8%A3%D9%86%D8%A7%D8%A9/id1472911277' target='_blank'>
+                                                        <img src={process.env.PUBLIC_URL + '/img/icons/app-store.png'} style={{ width: '35px', position: 'relative', top: '5px', left: '25px' }} />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </>
+                                    }
+                                </div>
+                                <div className="col-xl-12 mt-3">
+                                    <label htmlFor='sick'>Prescribe Sick-leave</label>
+                                    <div className='container row'>
+                                        &nbsp; <input className='radioReset' type="radio" id="yes1" name="yesOrNo1" defaultValue="YES" onChange={sick} />
+                                        &nbsp; <label htmlFor="yes1">Yes</label>
+                                        &nbsp;&nbsp;&nbsp; <input className='radioReset' type="radio" id="no1" name="yesOrNo1" defaultValue="NO" onChange={sick} required />
+                                        &nbsp;&nbsp; <label htmlFor="no1">No</label>
+                                    </div>
+                                    {sickLeave && <input id='sick' name='sick_leave' type='number' placeholder="How many days?" required />}
+                                </div>
+                                <div className="col-xl-12">
+                                    <button type="submit" className="boxed-btn mt-4" style={{ width: "100%" }}>Save Consultation</button>
+                                </div>
+                                {visible && <Popup handleClose={closePopup} />}
                             </div>
-                            <div className="col-xl-12">
-                                <button type="submit" className="boxed-btn mt-4" style={{ width: "100%" }}>Save Consultation</button>
-                            </div>
-                            {visible && <Popup handleClose={closePopup} />}
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                </div>
+                <div className="cancel-btn">
+                    <img src="img/icons/cancel.png" id="cancel-here" onClick={closeNotesAnimation} />
                 </div>
             </div>
         </div>

@@ -19,23 +19,11 @@ const DoctorHomePage = () => {
     }
     const [visible, setVisible] = useState(false);
 
-    const Popup = ({ handleClose }) => {
+    const Popup = () => {
 
         const modalRef = useRef(null);
 
-        const closeWithAnimation = () => {
-            if (modalRef.current) {
-                modalRef.current.classList.add("closing");
-                modalRef.current.classList.remove("closing");
-                handleClose();
-                // nav('/doctor-homepage', {
-                //     state: {
-                //         logInToken: state.logInToken,
-                //         loggedInUser: state.loggedInUser,
-                //     }
-                // });
-            }
-        }; return (
+        return (
             <div ref={modalRef} className="graphpop">
                 <div className="content">
                     <div className="logo-img">
@@ -45,14 +33,7 @@ const DoctorHomePage = () => {
                         <h2>You have a new<span style={{ color: "#ba8abb" }}> call!</span> </h2>
                         <div className="boxed-btn mt-4" style={{ background: "#BA8ABB", border: '#BA8ABB', display: 'block', marginBottom: '15px' }} onClick={navigateWithData}>View calls</div>
                     </div>
-                    {/* <div className="cancel-btn">
-                        <img src="img/icons/cancel.png" id="cancel-here" onClick={closeWithAnimation} />
-                    </div> */}
                 </div>
-                {/* {setTimeout(() => {
-                    closePopup()
-                    nav("/login")
-                }, 2000)} */}
             </div>
         );
     };
@@ -73,7 +54,6 @@ const DoctorHomePage = () => {
         });
     }
     const [calls, setCalls] = useState([]);
-    const [patients, setPatients] = useState([]);
     const [dataLoaded, setDataLoaded] = useState(false);
     const [newCalls, setNewCalls] = useState(false);
 
@@ -96,7 +76,7 @@ const DoctorHomePage = () => {
                             message: 'A new patient waiting for consultation',
                             closeButton: "X",
                             icon: logo,
-                            onClick: ()=>nav('/calls', {
+                            onClick: () => nav('/calls', {
                                 state: {
                                     logInToken: state.logInToken,
                                     loggedInUser: state.loggedInUser
@@ -145,38 +125,68 @@ const DoctorHomePage = () => {
                     <Footer />
                 </div>
                 :
-                <div className="quality_area">
-                    {!newCalls ?
-                        ""
-                        :
-                        visible && <Popup handleClose={closePopup} />
+                state.loggedInUser.is_verified ?
+                    <div className="quality_area">
+                        {!newCalls ?
+                            ""
+                            :
+                            visible && <Popup handleClose={closePopup} />
 
-                    }
-                    <div className="container">
-                        <div className="row justify-content-center ">
-                            <div className="col-lg-6">
-                                <h6 id='welcome-text'>Welcome {state.loggedInUser.full_name}!</h6>
-                                <div className="section_title mb-55 text-center">
-                                    <h3 className='mt-3'>Welcome aboard!</h3>
-                                    {/* <p>Would you make sure that you've read our <a href="#" style={{ color: "#BA8ABB" }}>prerequisites?</a></p> */}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row justify-content-center">
-                            <div className="col-lg-4 col-md-6">
-                                <div className="single_quality">
-                                    <div className="icon" style={{ backgroundImage: "-webkit-linear-gradient(90deg, #BA8ABB 0%, #BA8ABB 100%)" }}>
-                                        <i className="flaticon-doctor"></i>
+                        }
+                        <div className="container">
+                            <div className="row justify-content-center ">
+                                <div className="col-lg-6">
+                                    <h6 id='welcome-text'>Welcome {state.loggedInUser.full_name}!</h6>
+                                    <div className="section_title mb-55 text-center">
+                                        <h3 className='mt-3'>Welcome aboard!</h3>
+                                        {/* <p>Would you make sure that you've read our <a href="#" style={{ color: "#BA8ABB" }}>prerequisites?</a></p> */}
                                     </div>
-                                    <div className="boxed-btn mt-4" style={{ background: "#BA8ABB", border: '#BA8ABB', display: 'block', marginBottom: '15px' }} onClick={navigateWithData}>Start accepting consultations!</div>
-                                    {/* <h3>Ready to receive calls?</h3> */}
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                </div>
+                            </div>
+                            <div className="row justify-content-center">
+                                <div className="col-lg-4 col-md-6">
+                                    <div className="single_quality">
+                                        <div className="icon" style={{ backgroundImage: "-webkit-linear-gradient(90deg, #BA8ABB 0%, #BA8ABB 100%)" }}>
+                                            <i className="flaticon-doctor"></i>
+                                        </div>
+                                        <div className="boxed-btn mt-4" style={{ background: "#BA8ABB", border: '#BA8ABB', display: 'block', marginBottom: '15px' }} onClick={navigateWithData}>Start accepting consultations!</div>
+                                        {/* <h3>Ready to receive calls?</h3> */}
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <Footer />
                     </div>
-                    <Footer />
-                </div>
+                    :
+                    <div className="quality_area">
+                        <div className="container">
+                            <div className="row justify-content-center ">
+                                <div className="col-lg-6">
+                                    <h6 id='welcome-text'>Welcome {state.loggedInUser.full_name}!</h6>
+                                    <div className="section_title mb-55 text-center">
+                                        <h3 className='mt-3'>Welcome aboard!</h3>
+                                        {/* <p>Would you make sure that you've read our <a href="#" style={{ color: "#BA8ABB" }}>prerequisites?</a></p> */}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row justify-content-center">
+                                <div className="col-lg-4 col-md-6">
+                                    <div className="single_quality">
+                                        <div className="icon" style={{ backgroundImage: "-webkit-linear-gradient(90deg, #BA8ABB 0%, #BA8ABB 100%)" }}>
+                                            <i className="flaticon-doctor"></i>
+                                        </div>
+                                        {/* <div className="boxed-btn mt-4" style={{ background: "#BA8ABB", border: '#BA8ABB', display: 'block', marginBottom: '15px' }} onClick={navigateWithData}>Start accepting consultations!</div> */}
+                                        {/* <h3>Ready to receive calls?</h3> */}
+                                        <p className='mt-5'>We are currently reviewing your application and once it's verified you will be ready to start accepting calls.
+                                            Thank you!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <Footer />
+                    </div>
             }
         </>
     );

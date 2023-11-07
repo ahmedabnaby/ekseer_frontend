@@ -84,7 +84,7 @@ function Questions() {
             nav("/signaling", {
                 state: {
                     logInToken: state.logInToken,
-                    loggedInUser: state.loggedInUser
+                    loggedInUser: state.loggedInUser,
                 }
             });
         }, 2000)
@@ -94,12 +94,6 @@ function Questions() {
             <div className="depertment_area">
                 <div className="container">
                     <div className="row custom_align justify-content-center">
-                        {/* <div className="col-lg-6">
-                            <div className="section_title">
-                                <h3 className="purple_c">Before you start the call with our specialists</h3>
-                                <h6 className="purple_c mb-4">You need to answer a few questions in order to escalate your condition.</h6>
-                            </div>
-                        </div> */}
                         <div className="col-lg-6 mt-4">
                             <div className="section_title">
                                 <h3 className="purple_c">Before you start the call with our specialists</h3>

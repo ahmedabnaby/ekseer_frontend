@@ -67,9 +67,11 @@ export const NewCalls = () => {
                         logInToken: state.logInToken,
                         loggedInUser: state.loggedInUser,
                         meeting_id: meeting_id,
-                        patient_id: response.data.patient_id
+                        patient_id: response.data.patient_id,
+                        call_id:id,
                     }
                 });
+                localStorage.setItem('doctorTime', new Date().getMinutes());
             })
             .catch(function (response) {
             });
@@ -136,17 +138,17 @@ export const NewCalls = () => {
                                                                     <span>
                                                                         {patients.map((patient) => (
                                                                             call.patient_id == patient.id ?
-                                                                                <>
+                                                                                <div key={patient.id}>
                                                                                     <span style={{fontSize:'16px', color:'#993f95'}}>{patient.full_name}</span>
                                                                                     <br/>
                                                                                     <span style={{fontSize:'12px', color:'#26a994'}}>Age: {getAge(patient.date_of_birth)}</span>
-                                                                                </>
+                                                                                </div>
                                                                                 :
                                                                                 ""
                                                                         ))}
                                                                     </span>
                                                                     <br />
-                                                                    <span style={{position:'relative', top:'5px'}}>
+                                                                    <span style={{position:'relative', top:'-5px'}}>
                                                                         {getDateAndTime(call.created_at) >= 0 ? getDateAndTime(call.created_at) + " minute(s) ago" : "More than a hour ago"}
                                                                     </span>
                                                                 </h5>

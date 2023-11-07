@@ -80,17 +80,17 @@ export const DoctorConsultation = () => {
         setPatientVisibility(false);
     };
     const formatDate = (date) => {
-        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         const formattedDate = new Date(date).toLocaleDateString('en-US', options);
 
         // Split the formatted date into day, month, and year parts
-        const [month, day, year] = formattedDate.split(' ');
+        const [month, day, year,hour,minute] = formattedDate.split(' ');
 
         // Convert the month abbreviation to uppercase
         const capitalizedMonth = month.toUpperCase();
 
         // Return the formatted date with uppercase month abbreviation and desired format
-        return `${day} ${capitalizedMonth} ${year}`;
+        return `${day} ${capitalizedMonth} ${year} ${hour} ${minute}`;
     }
 
     const showConsultation = (consultaion) => {
@@ -125,6 +125,7 @@ export const DoctorConsultation = () => {
                 <div className="progress-table-wrap">
                     {getUniqueConsultations().length > 0 ?
                         <div className="progress-table">
+                            {console.log("here")}
                             <div className="table-head">
                                 <div className="serial">#</div>
                                 <div className="country">Patient Name</div>
@@ -394,17 +395,17 @@ const ShowAllConsultations = ({ patientId, hideConsultation }) => {
         setVisibility(false);
     };
     const formatDate = (date) => {
-        const options = { day: '2-digit', month: 'short', year: 'numeric' };
+        const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
         const formattedDate = new Date(date).toLocaleDateString('en-US', options);
 
         // Split the formatted date into day, month, and year parts
-        const [month, day, year] = formattedDate.split(' ');
+        const [month, day, year,hour,minute] = formattedDate.split(' ');
 
         // Convert the month abbreviation to uppercase
         const capitalizedMonth = month.toUpperCase();
 
         // Return the formatted date with uppercase month abbreviation and desired format
-        return `${day} ${capitalizedMonth} ${year}`;
+        return `${day} ${capitalizedMonth} ${year} ${hour} ${minute}`;
     }
     useEffect(() => {
         fetchConsultations();

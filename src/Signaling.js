@@ -29,6 +29,8 @@ const Signaling = () => {
   const nav = useNavigate();
   const { state } = useLocation();
 
+  // console.log(state)
+
   useEffect(() => {
     if (isMobile) {
       window.onbeforeunload = () => {

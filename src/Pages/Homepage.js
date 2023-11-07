@@ -25,6 +25,15 @@ const HomePage = () => {
             }
         });
     }
+    const navigateViewPatientConsultation = () => {
+        nav('/patient-consultation', {
+          state: {
+            logInToken: state.logInToken,
+            loggedInUser: state.loggedInUser
+          }
+        });
+        window.location.reload()
+      }
     return (
         <>
             {isLoggedIn === false ?
@@ -79,7 +88,7 @@ const HomePage = () => {
                                     <br />
                                     or
                                     <br />
-                                    <div onClick={navigateWithData} className="boxed-btn mt-4">Follow up!</div>
+                                    <div onClick={navigateViewPatientConsultation} className="boxed-btn mt-4">Follow up!</div>
                                 </div>
                             </div>
                         </div>

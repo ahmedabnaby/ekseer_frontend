@@ -15,6 +15,7 @@ import { useMeetingAppContext } from "../MeetingAppContextDef";
 import useMediaStream from "../hooks/useMediaStream";
 import { useLocation } from "react-router-dom";
 import { TakeNotes } from "../Pages/TakeNotes";
+import axios from 'axios';
 
 export function MeetingContainer({
   onMeetingLeave,
@@ -31,7 +32,12 @@ export function MeetingContainer({
   const { useRaisedHandParticipants } = useMeetingAppContext();
   const { getVideoTrack } = useMediaStream();
 
+  var patientTime = localStorage.getItem('patientTime')
+  var doctorTime = localStorage.getItem('doctorTime')
+  console.log(patientTime)
+  console.log(doctorTime)
   const { state } = useLocation();
+  // const currentTime = new Date().getMinutes();
   // console.log(state)
   const bottomBarHeight = 60;
 
@@ -208,7 +214,7 @@ export function MeetingContainer({
   });
 
   const isPresenting = mMeeting.presenterId ? true : false;
-
+  const { participants } = useMeeting();
   useEffect(() => {
     mMeetingRef.current = mMeeting;
   }, [mMeeting]);
@@ -257,7 +263,7 @@ export function MeetingContainer({
           `https://static.videosdk.live/prebuilt/notification.mp3`
         ).play();
         var newMessage = document.getElementById('newMessage')
-        newMessage.style.visibility = "visible" 
+        newMessage.style.visibility = "visible"
         newMessage.innerHTML = `
         <span id = "clsBtn" onclick="
         var newMessage = document.getElementById('newMessage')
@@ -266,7 +272,7 @@ export function MeetingContainer({
         ${nameTructed(senderName, 15)} says: ${message}
         `
 
-          // <p>{senderName} says: ${message}</p>
+        // <p>{senderName} says: ${message}</p>
         toast(
           `${trimSnackBarText(
             `${nameTructed(senderName, 15)} says: ${message}`
@@ -286,10 +292,12 @@ export function MeetingContainer({
     },
   });
 
+  const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
   const Ref = useRef(null);
 
   // The state for our timer
   const [timer, setTimer] = useState('00:00:00');
+  var call_id = localStorage.getItem('call_id');
 
   const getTimeRemaining = (e) => {
     const total = Date.parse(e) - Date.parse(new Date());
@@ -342,7 +350,38 @@ export function MeetingContainer({
     deadline.setSeconds(deadline.getSeconds() + 900);
     return deadline;
   }
+  const saveAwaitingTime = (time) => {
+    // var callTime = localStorage.getItem('callTime');
+    var awaiting_time = doctorTime - time;
+    console.log(doctorTime)
+    console.log(time)
+    console.log(awaiting_time)
+    if (awaiting_time >= 0) {
+      console.log(awaiting_time)
+    }
+    else {
+      awaiting_time = "More than 15 minutes"
+    }
+    var bodyFormData = new FormData();
+    // var awaiting_time = parseInt(time)
+    bodyFormData.append("awaiting_time", awaiting_time);
+    axios({
+      method: "put",
+      url: `${BASE_URL}/update-call/${call_id}/`,
+      data: bodyFormData,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (response) {
+        console.log(response)
+      });
 
+
+  }
+
+  var tempParticipants = participants.size;
   // We can use useEffect so that when the component
   // mount the timer will start as soon as possible
 
@@ -362,24 +401,31 @@ export function MeetingContainer({
             <>
               {state.loggedInUser.is_doctor ?
                 <>
-                <div className="row">
-                  {visible ?
-                    <div id="take-notes" className="hide-btn" style={{ textAlign: 'center', width:'50%' }} onClick={showTakeNotes}>
-                      Back to meeting
-                    </div>
-                    :
-                    <div id="take-notes" className="notes-btn" style={{ textAlign: 'center', width:'50%' }} onClick={showTakeNotes}>
-                      <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
-                      Take Notes
-                    </div>
-                  }
-                  {/* <div className="myTimer">{timer}</div> */}
+                  <div className="row">
+                    {visible ?
+                      <div id="take-notes" className="hide-btn" style={{ textAlign: 'center', width: '50%' }} onClick={showTakeNotes}>
+                        Back to meeting
+                      </div>
+                      :
+                      <div id="take-notes" className="notes-btn" style={{ textAlign: 'center', width: '50%' }} onClick={showTakeNotes}>
+                        <img src='/img/icons/notes.png' style={{ display: 'inline-block', position: 'relative', width: '20px', marginRight: '5px', top: '-2px' }} />
+                        Take Notes
+                      </div>
+                    }
                   </div>
-                  {visible && <TakeNotes patient_id={state.patient_id} loggedInUser={state.loggedInUser} />}
+                  {visible && <TakeNotes patient_id={state.patient_id} call_id={call_id} loggedInUser={state.loggedInUser} handleClose={showTakeNotes} />}
                 </>
                 :
-                ""
-                // <div className="myTimer text-center" style={{width:'100%'}}>{timer}</div>
+                <>
+                  {tempParticipants > 2 ?
+                    <>
+                      {saveAwaitingTime(patientTime)}
+                    </>
+                    :
+                    ""
+                    // <div className="myTimer text-center" style={{ width: '100%' }}>{timer}</div>
+                  }
+                </>
               }
               <div className={` flex flex-1 flex-row bg-gray-800 `}>
                 <div className={`flex flex-1 `}>
