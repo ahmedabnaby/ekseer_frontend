@@ -10,7 +10,7 @@ export const UpdateConsultation = ({
 }) => {
 
     console.log(loggedInUser, patient_id, id, consultation)
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
     const { state } = useLocation()
     // console.log(data)
     const [patients, setPatients] = useState([])

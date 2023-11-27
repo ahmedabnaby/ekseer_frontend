@@ -4,6 +4,7 @@ import { LeaveScreen } from "./components/screens/LeaveScreen";
 import { JoiningScreen } from "./components/screens/JoiningScreen";
 import { MeetingContainer } from "./meeting/MeetingContainer";
 import { MeetingAppProvider } from "./MeetingAppContextDef";
+import axios from 'axios';
 import { useNavigate, useLocation } from "react-router-dom";
 
 
@@ -28,10 +29,51 @@ const Signaling = () => {
   ).matches;
   const nav = useNavigate();
   const { state } = useLocation();
+  const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
-  // console.log(state)
+  console.log(state)
 
+  const updateAwaitingTime = async () => {
+    var id = state.call_id;
+    if (id != undefined) {
+      var bodyFormData = new FormData();
+      bodyFormData.append("awaiting_time", null);
+      axios({
+        method: "put",
+        url: `${BASE_URL}/update-call/${id}/`,
+        data: bodyFormData,
+        headers: { "Content-Type": "application/json" },
+      })
+        .then(function (response) {
+          var patientTime = response.data.patient_time;
+          var doctorTime = response.data.doctor_time;
+          var awaitingTime = doctorTime - patientTime;
+          if (awaitingTime >= 0) {
+            console.log(awaitingTime)
+          }
+          else {
+            awaitingTime = "More than 15 minutes"
+          }
+          var bodyFormData = new FormData();
+          bodyFormData.append("awaiting_time", awaitingTime);
+          axios({
+            method: "put",
+            url: `${BASE_URL}/update-call/${id}/`,
+            data: bodyFormData,
+            headers: { "Content-Type": "application/json" },
+          })
+
+        })
+        .catch(function (response) {
+          console.log(response)
+        });
+    }
+    else {
+      console.log("patient");
+    }
+  }
   useEffect(() => {
+    updateAwaitingTime();
     if (isMobile) {
       window.onbeforeunload = () => {
         return "Are you sure you want to exit?";
@@ -83,7 +125,7 @@ const Signaling = () => {
           </MeetingProvider>
         </MeetingAppProvider>
       ) : isMeetingLeft ? (
-            <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} />
+        <LeaveScreen setIsMeetingLeft={setIsMeetingLeft} call_id={state.call_id} />
       ) : (
         state.meeting_id == undefined ?
           <JoiningScreen

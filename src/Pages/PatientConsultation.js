@@ -9,7 +9,7 @@ export const PatientConsultation = () => {
     const [newConsultations, setNewConsultations] = useState(false);
     const [visible, setVisibility] = useState(false);
     const [doctors, setDoctors] = useState([]);
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
     const fetchConsultations = async () => {
         await axios.get(`${BASE_URL}/consultations/`)
@@ -125,7 +125,7 @@ export const PatientConsultation = () => {
 
 const ShowSelectedConsultation = ({ consultation, handleClose }) => {
     console.log(consultation)
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
     const [doctors, setDoctors] = useState([]);
     const fetchDoctors = async () => {
         await axios.get(`${BASE_URL}/users/`).then((response) => {
@@ -154,10 +154,10 @@ const ShowSelectedConsultation = ({ consultation, handleClose }) => {
                     </div>
                     <div className="dept_main_info">
                         <div className="tab-content" id="myTabContent">
-                            <div className="row align-items-center">
-                                <div className='card mb-5'>
+                            <div className="row justify-content-center align-items-center">
+                                <div className='card mb-5 align-items-center'>
                                     <div className="col-lg-7">
-                                        <div className="dept_info">
+                                        <div className="dept_info justify-content-center align-items-center">
                                             <h3>Viewing of consultaion of Doctor: &nbsp;
                                                 <span style={{ color: '#953E92' }}>
                                                     {doctors.map((doctor) => (

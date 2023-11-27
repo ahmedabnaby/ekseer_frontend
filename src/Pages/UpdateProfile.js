@@ -5,8 +5,8 @@ import axios from 'axios';
 import Footer from "../Includes/Footer"
 
 function UpdateProfile() {
-    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
 
     const nav = useNavigate();

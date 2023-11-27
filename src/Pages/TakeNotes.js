@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 export const TakeNotes = ({
@@ -9,16 +8,14 @@ export const TakeNotes = ({
     call_id
 }) => {
 
-    console.log(loggedInUser, patient_id)
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    console.log(patient_id)
 
-    // console.log(data)
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
     const [patients, setPatients] = useState([])
     const [consultation, setConsultation] = useState([])
     const [medication, setMedication] = useState(false)
     const [sickLeave, setSickLeave] = useState(false)
     const modalRef = useRef(null);
-
     const [visible, setVisible] = useState(false);
     const closeNotesAnimation = () => {
         if (modalRef.current) {
@@ -126,7 +123,6 @@ export const TakeNotes = ({
         })
             .then(function (response) {
                 showPopup()
-                localStorage.setItem('consultation', response.data.id)
             })
             .catch(function (response) {
                 console.log(response);
@@ -143,13 +139,14 @@ export const TakeNotes = ({
                     <div className="col-xl-8 col-md-6 col-lg-4 popup_box" style={{ marginTop: '0px' }} id='footer_contact_form'>
                         <h3 style={{ color: '#24ab94' }}>
                             You are writing consultation to:
+                            {/* {new Date().getFullYear()} */}
                             <span style={{ color: "#953E92", fontSize: '18px' }}>
                                 {patients.map((patient) => (
                                     patient_id == patient.id ?
                                         <div key={patient.id}>
                                             Patient name: {patient.full_name}
                                             <br />
-                                            Age: {getAge(patient.date_of_birth)}
+                                            Age: {new Date().getFullYear() - patient.date_of_birth.slice(6)}
                                         </div>
                                         :
                                         ""

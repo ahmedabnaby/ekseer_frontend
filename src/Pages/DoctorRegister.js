@@ -4,8 +4,8 @@ import axios from 'axios';
 import Footer from "../Includes/Footer"
 
 function DoctorRegister() {
-    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
     const [copyOfIqamaErrors, setcopyOfIqamaErrors] = useState([]);
     const [emailErrors, setEmailErrors] = useState([]);
@@ -106,7 +106,7 @@ function DoctorRegister() {
                     setcopyOfIqamaErrors(response.response.data.copy_of_iqama_number[0])
                 }
                 else {
-                    console.log("Good to go!")
+                    console.log(response.response)
                 }
             });
 

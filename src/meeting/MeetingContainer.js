@@ -32,13 +32,10 @@ export function MeetingContainer({
   const { useRaisedHandParticipants } = useMeetingAppContext();
   const { getVideoTrack } = useMediaStream();
 
-  var patientTime = localStorage.getItem('patientTime')
-  var doctorTime = localStorage.getItem('doctorTime')
-  console.log(patientTime)
-  console.log(doctorTime)
+
   const { state } = useLocation();
+  console.log(state)
   // const currentTime = new Date().getMinutes();
-  // console.log(state)
   const bottomBarHeight = 60;
 
   const [containerHeight, setContainerHeight] = useState(0);
@@ -292,12 +289,12 @@ export function MeetingContainer({
     },
   });
 
-  const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+  const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
   const Ref = useRef(null);
 
   // The state for our timer
   const [timer, setTimer] = useState('00:00:00');
-  var call_id = localStorage.getItem('call_id');
+  var call_id = state.call_id;
 
   const getTimeRemaining = (e) => {
     const total = Date.parse(e) - Date.parse(new Date());
@@ -350,38 +347,8 @@ export function MeetingContainer({
     deadline.setSeconds(deadline.getSeconds() + 900);
     return deadline;
   }
-  const saveAwaitingTime = (time) => {
-    // var callTime = localStorage.getItem('callTime');
-    var awaiting_time = doctorTime - time;
-    console.log(doctorTime)
-    console.log(time)
-    console.log(awaiting_time)
-    if (awaiting_time >= 0) {
-      console.log(awaiting_time)
-    }
-    else {
-      awaiting_time = "More than 15 minutes"
-    }
-    var bodyFormData = new FormData();
-    // var awaiting_time = parseInt(time)
-    bodyFormData.append("awaiting_time", awaiting_time);
-    axios({
-      method: "put",
-      url: `${BASE_URL}/update-call/${call_id}/`,
-      data: bodyFormData,
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(function (response) {
-        console.log(response)
-      })
-      .catch(function (response) {
-        console.log(response)
-      });
 
-
-  }
-
-  var tempParticipants = participants.size;
+  // var tempParticipants = participants.size;
   // We can use useEffect so that when the component
   // mount the timer will start as soon as possible
 
@@ -394,7 +361,7 @@ export function MeetingContainer({
 
 
   return (
-    <div className="fixed inset-0 inset-mt">
+    <div className="fixed inset-0 inset-mt" id="overflowY">
       <div ref={containerRef} className="h-full flex flex-col bg-gray-800">
         {typeof localParticipantAllowedJoin === "boolean" ? (
           localParticipantAllowedJoin ? (
@@ -416,16 +383,7 @@ export function MeetingContainer({
                   {visible && <TakeNotes patient_id={state.patient_id} call_id={call_id} loggedInUser={state.loggedInUser} handleClose={showTakeNotes} />}
                 </>
                 :
-                <>
-                  {tempParticipants > 2 ?
-                    <>
-                      {saveAwaitingTime(patientTime)}
-                    </>
-                    :
-                    ""
-                    // <div className="myTimer text-center" style={{ width: '100%' }}>{timer}</div>
-                  }
-                </>
+                ""
               }
               <div className={` flex flex-1 flex-row bg-gray-800 `}>
                 <div className={`flex flex-1 `}>

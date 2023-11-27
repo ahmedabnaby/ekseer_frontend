@@ -18,8 +18,8 @@ export const NewCalls = () => {
     const nav = useNavigate();
 
 
-    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
     const [calls, setCalls] = useState([]);
     const [patients, setPatients] = useState([]);
@@ -55,6 +55,7 @@ export const NewCalls = () => {
         bodyFormData.append("meeting_id", meeting_id);
         bodyFormData.append("doctor_id", doctor_id);
         bodyFormData.append("is_new", false);
+        bodyFormData.append("doctor_time", new Date().getMinutes());
         axios({
             method: "put",
             url: `${BASE_URL}/update-call/${id}/`,
@@ -68,10 +69,9 @@ export const NewCalls = () => {
                         loggedInUser: state.loggedInUser,
                         meeting_id: meeting_id,
                         patient_id: response.data.patient_id,
-                        call_id:id,
+                        call_id: id,
                     }
                 });
-                localStorage.setItem('doctorTime', new Date().getMinutes());
             })
             .catch(function (response) {
             });
@@ -116,7 +116,7 @@ export const NewCalls = () => {
         <>
             <section className="blog_area single-post-area">
                 <div className="container">
-                    <div className="row">
+                    <div className="row justify-content-center">
                         <div className="col-lg-8 posts-list">
                             {dataLoaded ? (
                                 <div className="comments-area">
@@ -139,16 +139,16 @@ export const NewCalls = () => {
                                                                         {patients.map((patient) => (
                                                                             call.patient_id == patient.id ?
                                                                                 <div key={patient.id}>
-                                                                                    <span style={{fontSize:'16px', color:'#993f95'}}>{patient.full_name}</span>
-                                                                                    <br/>
-                                                                                    <span style={{fontSize:'12px', color:'#26a994'}}>Age: {getAge(patient.date_of_birth)}</span>
+                                                                                    <span style={{ fontSize: '16px', color: '#993f95' }}>{patient.full_name}</span>
+                                                                                    <br />
+                                                                                    <span style={{ fontSize: '12px', color: '#26a994' }}>Age: {new Date().getFullYear() - patient.date_of_birth.slice(6)-1}</span>
                                                                                 </div>
                                                                                 :
                                                                                 ""
                                                                         ))}
                                                                     </span>
                                                                     <br />
-                                                                    <span style={{position:'relative', top:'-5px'}}>
+                                                                    <span style={{ position: 'relative', top: '-5px' }}>
                                                                         {getDateAndTime(call.created_at) >= 0 ? getDateAndTime(call.created_at) + " minute(s) ago" : "More than a hour ago"}
                                                                     </span>
                                                                 </h5>

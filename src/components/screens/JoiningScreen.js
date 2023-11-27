@@ -340,10 +340,10 @@ export function JoiningScreen({
   };
 
   return (
-    <div className="fixed inset-0 inset-mt">
-      <div className="overflow-y-auto flex flex-col flex-1 h-screen bg-gray-800">
+    <div className="fixed inset-0 inset-mt" id="overflowY">
+      <div className="flex flex-col flex-1 h-screen bg-gray-800">
         <div className="flex flex-1 flex-col md:flex-row items-center justify-center md:m-[72px] m-16">
-          <div className="container grid  md:grid-flow-col grid-flow-row ">
+          <div className="container grid md:grid-flow-col grid-flow-row" id="overflowY">
             <div className="grid grid-cols-12">
               <div className="md:col-span-7 2xl:col-span-6 col-span-12">
                 <div className="flex items-center justify-center p-1.5 sm:p-4 lg:p-6">
@@ -454,10 +454,8 @@ export function JoiningScreen({
                       });
                       
                       if (valid) {
-                        // console.log("Valid")
                         setToken(token);
                         setMeetingId(id)
-                        // console.log(id,"MIIIIAIAIAIAIAIAIA")
                         if (videoTrack) {
                           videoTrack.stop();
                           setVideoTrack(null);

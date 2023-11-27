@@ -1,6 +1,6 @@
 import { CheckIcon, ClipboardIcon } from "@heroicons/react/outline";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 
@@ -14,16 +14,19 @@ export function MeetingDetailsScreen({
   setVideoTrack,
   onClickStartMeeting,
 }) {
-  // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-  const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+  // const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
+  const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
   const [meetingId, setMeetingId] = useState("");
   const [meetingIdError, setMeetingIdError] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [iscreateMeetingClicked, setIscreateMeetingClicked] = useState(false);
   const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
-  
-  const {state} = useLocation();
+
+  const { state } = useLocation();
+  const nav = useNavigate();
+
+
   participantName = state.loggedInUser.full_name
   // console.log(callMeetingId)
   const goBack = () => {
@@ -132,9 +135,28 @@ export function MeetingDetailsScreen({
                       headers: { "Content-Type": "multipart/form-data" },
                     })
                       .then(function (response) {
-                        localStorage.setItem('call_id', response.data.id);
-                        localStorage.setItem('patientTime', new Date().getMinutes());
+                        var bodyFormData = new FormData();
+                        bodyFormData.append("patient_time", new Date().getMinutes());
+                        axios({
+                          method: "put",
+                          url: `${BASE_URL}/update-call/${response.data.id}/`,
+                          data: bodyFormData,
+                          headers: { "Content-Type": "application/json" },
+                        })
+                          .then(function (response) {
+                            console.log(response)
+                          })
+                          .catch(function (response) {
+                            console.log(response)
+                          });
                         console.log(response);
+                        nav("#", {
+                          state: {
+                            call_id: response.data.id,
+                            logInToken: state.logInToken,
+                            loggedInUser: state.loggedInUser
+                          }
+                        })
                       })
                       .catch(function (response) {
                         console.log(response);

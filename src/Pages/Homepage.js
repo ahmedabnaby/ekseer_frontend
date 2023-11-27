@@ -1,12 +1,12 @@
 
 
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from '../Includes/Footer'
 
 const HomePage = () => {
-    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
     var isLoggedIn = false;
 
@@ -27,13 +27,13 @@ const HomePage = () => {
     }
     const navigateViewPatientConsultation = () => {
         nav('/patient-consultation', {
-          state: {
-            logInToken: state.logInToken,
-            loggedInUser: state.loggedInUser
-          }
+            state: {
+                logInToken: state.logInToken,
+                loggedInUser: state.loggedInUser
+            }
         });
         window.location.reload()
-      }
+    }
     return (
         <>
             {isLoggedIn === false ?
@@ -54,7 +54,7 @@ const HomePage = () => {
                                     <div className="icon">
                                         <i className="flaticon-doctor"></i>
                                     </div>
-                                    <a href="/login" className="boxed-btn mt-4 mb-4" style={{display:'block'}}>Start Consultation!</a>
+                                    <a href="/login" className="boxed-btn mt-4 mb-4" style={{ display: 'block' }}>Start Consultation!</a>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
                                     {/* <a href="/login" style={{ marginTop: "25px", width:'100%' }}>Already have an account? <br /><span style={{ color: "#ba8abb", marginTop: "15px" }}> Login here</span>.</a> */}
                                 </div>

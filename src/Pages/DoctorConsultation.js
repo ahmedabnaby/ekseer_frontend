@@ -12,7 +12,7 @@ export const DoctorConsultation = () => {
     const [selectedConsultation, setSelectedConsultation] = useState("");
     const [selectedPatient, setSelectedPatient] = useState("");
     const [patients, setPatients] = useState([]);
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
     var uniquePatients = []
     var uniqueDoctors = []
     var uniqueConsultations = []
@@ -84,7 +84,7 @@ export const DoctorConsultation = () => {
         const formattedDate = new Date(date).toLocaleDateString('en-US', options);
 
         // Split the formatted date into day, month, and year parts
-        const [month, day, year,hour,minute] = formattedDate.split(' ');
+        const [month, day, year, hour, minute] = formattedDate.split(' ');
 
         // Convert the month abbreviation to uppercase
         const capitalizedMonth = month.toUpperCase();
@@ -186,7 +186,7 @@ export const DoctorConsultation = () => {
 
 const ShowSelectedConsultation = ({ consultation, handleClose }) => {
     // console.log(consultation)
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
     const { state } = useLocation();
     const [patients, setPatients] = useState([]);
     const [visibleUpdateConsultations, setVisibleUpdateConsultations] = useState(false);
@@ -220,8 +220,8 @@ const ShowSelectedConsultation = ({ consultation, handleClose }) => {
                     </div>
                     <div className="dept_main_info">
                         <div className="tab-content" id="myTabContent">
-                            <div className="row align-items-center">
-                                <div className='card mb-5'>
+                            <div className="row justify-content-center align-items-center">
+                                <div className='card mb-5 align-items-center'>
                                     <div className="col-lg-7">
                                         <div className="dept_info">
                                             <h3>Viewing of consultaion of Patient: &nbsp;
@@ -259,7 +259,11 @@ const ShowSelectedConsultation = ({ consultation, handleClose }) => {
                                                 <h5>Sick leave:</h5>
                                                 <p>{consultation.sick_leave}</p>
                                             </div>
-                                            <button onClick={showUpdateConsultation} className="boxed-btn">Modify Consultation</button>
+                                            {
+                                                state.loggedInUser.id == consultation.doctor_id ?
+                                                    <button onClick={showUpdateConsultation} className="boxed-btn">Modify Consultation</button>
+                                                    : ""
+                                            }
                                         </div>
                                     </div>
                                     {visibleUpdateConsultations && <UpdateConsultation consultation={consultation} id={consultation.id} patient_id={consultation.patient_id} loggedInUser={state.loggedInUser} />}
@@ -315,8 +319,8 @@ const ShowSelectedPatient = ({ patient, handleClosePatientPopUp }) => {
                     </div>
                     <div className="dept_main_info">
                         <div className="tab-content" id="myTabContent">
-                            <div className="row align-items-center">
-                                <div className='card mb-5'>
+                            <div className="row justify-content-center align-items-center">
+                                <div className='card mb-5 align-items-center'>
                                     <div className="col-lg-7">
                                         <div className="dept_info">
                                             <h3>Viewing the profile of Patient: <br />
@@ -365,7 +369,7 @@ const ShowAllConsultations = ({ patientId, hideConsultation }) => {
     const [consultations, setConsultations] = useState([]);
     const [selectedConsultation, setSelectedConsultation] = useState("");
     const [visible, setVisibility] = useState(false);
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
     const fetchConsultations = async () => {
         await axios.get(`${BASE_URL}/consultations/`)
@@ -399,7 +403,7 @@ const ShowAllConsultations = ({ patientId, hideConsultation }) => {
         const formattedDate = new Date(date).toLocaleDateString('en-US', options);
 
         // Split the formatted date into day, month, and year parts
-        const [month, day, year,hour,minute] = formattedDate.split(' ');
+        const [month, day, year, hour, minute] = formattedDate.split(' ');
 
         // Convert the month abbreviation to uppercase
         const capitalizedMonth = month.toUpperCase();

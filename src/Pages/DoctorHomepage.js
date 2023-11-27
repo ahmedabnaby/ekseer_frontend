@@ -6,8 +6,8 @@ import logo from "../../src/logo.png"
 import Footer from "../Includes/Footer"
 
 const DoctorHomePage = () => {
-    // const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
-    const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+    // const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
+    const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
     var isLoggedIn = false;
 
@@ -67,7 +67,10 @@ const DoctorHomePage = () => {
                     if ((response.data[i].is_new === false)) {
                         setNewCalls(false);
                     }
-                    else {
+                    else if (response.data[i].is_new && state.loggedInUser.is_verified === false) {
+                        setNewCalls(false);
+                    }
+                    else{
                         setNewCalls(true);
                         addNotification({
                             native: true,

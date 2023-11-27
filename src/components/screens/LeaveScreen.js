@@ -5,9 +5,9 @@ import axios from 'axios';
 export function LeaveScreen({ setIsMeetingLeft }) {
   const { state } = useLocation();
   const nav = useNavigate();
-  const BASE_URL = 'http://127.0.0.1:8000/authentication-api';
+  const BASE_URL = 'https://ekseer-backend.alsahaba.sa/authentication-api';
 
-
+  var call_id = state.call_id;
   const navigateHomePage = () => {
     setIsMeetingLeft(false);
     if (state.loggedInUser.is_doctor) {
@@ -31,7 +31,6 @@ export function LeaveScreen({ setIsMeetingLeft }) {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var consultation_id = localStorage.getItem('consultation')
     var rating;
     var message;
     var patient_id;
@@ -58,7 +57,7 @@ export function LeaveScreen({ setIsMeetingLeft }) {
     }
     var bodyFormData = new FormData();
     
-    bodyFormData.append("consultation_id", consultation_id);
+    bodyFormData.append("call_id", call_id);
     bodyFormData.append("rating", rating);
     bodyFormData.append("message", message);
     bodyFormData.append("doctor_id", doctor_id);
